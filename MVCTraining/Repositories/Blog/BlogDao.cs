@@ -42,7 +42,7 @@ namespace MvcTraining.Repositories.Blog
             int count = 0;
             try
             {
-                using (var con = new SqlConnection(_connection.SqlString))
+                using (var con = new SqlConnection(_connection.DbConnection))
                 {
                     con.Open();
                     var cmd = con.CreateCommand();
@@ -69,7 +69,7 @@ namespace MvcTraining.Repositories.Blog
             int count = 0;
             try
             {
-                using (var con = new SqlConnection(_connection.SqlString))
+                using (var con = new SqlConnection(_connection.DbConnection))
                 {
                     con.Open();
                     var cmd = con.CreateCommand();
@@ -100,7 +100,7 @@ namespace MvcTraining.Repositories.Blog
             List<BlogDto> blogList = new List<BlogDto>();
             try
             {
-                using (var con = new SqlConnection(_connection.SqlString))
+                using (var con = new SqlConnection(_connection.DbConnection))
                 {
                     con.Open();
                     var cmd = con.CreateCommand();
