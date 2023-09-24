@@ -61,7 +61,16 @@ namespace MVCTraining.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select * from Tbl_Blog.
+        ///   Looks up a localized string similar to select count(Blog_Id) as Blog_Count from Tbl_Blog where Is_Deleted = 0.
+        /// </summary>
+        internal static string BlogCount {
+            get {
+                return ResourceManager.GetString("BlogCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Blog_Id,Blog_Title,Blog_Author,Blog_Content from Tbl_Blog where Is_Deleted = 0.
         /// </summary>
         internal static string GetAllBlog {
             get {

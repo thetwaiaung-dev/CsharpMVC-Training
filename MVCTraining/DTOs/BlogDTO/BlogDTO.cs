@@ -11,5 +11,6 @@ namespace MVCTraining.DTOs.BlogDTO
         public string Blog_Title { get; set; }
         public string Blog_Author { get; set; }
         public string Blog_Content { get; set; }
+        public bool Is_Deleted { get; set; }
     }
 }

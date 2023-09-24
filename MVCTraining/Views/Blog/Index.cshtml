@@ -1,34 +1,16 @@
-﻿@model List<BlogRequestModel>
-@{
+﻿@{
     ViewData["Title"] = "Blog List";
-    int i = 1;
 }
 <table class="table" id="blog_table">
     <thead>
         <tr>
-            <th scope="col">#</th>
             <th scope="col">Blog Title</th>
             <th scope="col">Blog Author</th>
             <th scope="col">Blog Content</th>
             <th scope="col">Action</th>
         </tr>
     </thead>
-    <tbody>
-        @foreach(var item in Model){
-        <tr>
-            <th>@(i++)</th>
-            <td>@item.BlogTitle</td>
-            <td>@item.BlogAuthor</td>
-            <td>@item.BlogContent</td>
-                <td>
-                    <a href="/Blog/Edit/@item.BlogId" class="btn btn-warning">
-                        <i class="fa-solid fa-pen-to-square"></i>
-                    </a>
-                    <button type="button" class="btn btn-danger btn-delete" data-id="@item.BlogId">
-                        <i class="fa-solid fa-trash-can"></i>
-                    </button>
-                </td>
-        </tr>
-        }
-    </tbody>
 </table>
+@section Scripts{
+    <script src="~/js/pages/Blog/blog.js" asp-append-version="true"></script>
+}

@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Options;
 using MVCTraining.DBHelper;
 using MVCTraining.DTOs.BlogDTO;
+using MVCTraining.Models.RequestForm;
 using MVCTraining.Resources;
 using System;
 using System.Collections.Generic;
@@ -38,7 +39,65 @@ namespace MVCTraining.Repositorys.BlogRepository
             throw new System.NotImplementedException();
         }
 
-        public List<BlogDTO> GetAll()
+        public int ListCount()
+        {
+            int count = 0;
+            try
+            {
+                using (var con = new SqlConnection(_connection.SqlString))
+                {
+                    con.Open();
+                    var cmd = con.CreateCommand();
+                    cmd.CommandText = SqlResources.BlogCount;
+                    using (SqlDataReader rd = cmd.ExecuteReader())
+                    {
+                        while (rd.Read())
+                        {
+                            count = Convert.ToInt32(rd["Blog_Count"]);
+                        }
+                    }
+                    con.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            return count;
+        }
+
+        public int FilterListCount(string searchParam)
+        {
+            int count = 0;
+            try
+            {
+                using (var con = new SqlConnection(_connection.SqlString))
+                {
+                    con.Open();
+                    var cmd = con.CreateCommand();
+                    cmd.CommandText = SqlResources.BlogCount;
+                    if (!String.IsNullOrEmpty(searchParam))
+                    {
+                        cmd.CommandText += searchParam;
+                    }
+                    using (SqlDataReader rd = cmd.ExecuteReader())
+                    {
+                        while (rd.Read())
+                        {
+                            count = Convert.ToInt32(rd["Blog_Count"]);
+                        }
+                    }
+                    con.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            return count;
+        }
+
+        public List<BlogDTO> GetAll(string searchParam, string pagination)
         {
             List<BlogDTO> blogList = new List<BlogDTO>();
             try
@@ -48,7 +107,12 @@ namespace MVCTraining.Repositorys.BlogRepository
                     con.Open();
                     var cmd = con.CreateCommand();
                     cmd.CommandText = SqlResources.GetAllBlog;
-                    using(SqlDataReader rd = cmd.ExecuteReader())
+                    if (!String.IsNullOrEmpty(searchParam))
+                    {
+                        cmd.CommandText += searchParam;
+                    }
+                    cmd.CommandText += pagination;
+                    using (SqlDataReader rd = cmd.ExecuteReader())
                     {
                         while (rd.Read())
                         {
@@ -73,7 +137,7 @@ namespace MVCTraining.Repositorys.BlogRepository
         {
             throw new System.NotImplementedException();
         }
-
+        
         public int Update(long id, BlogDTO item)
         {
             throw new System.NotImplementedException();
