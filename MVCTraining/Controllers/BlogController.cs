@@ -23,7 +23,6 @@ namespace MvcTraining.Controllers
         public IActionResult GetAllBlog()
         {
             BlogDataRequestModel model = new BlogDataRequestModel();
-            BlogResponseFilter responseModel = new BlogResponseFilter();
             var requestData = GetFormRequest();
             model.DataTablesRequest = requestData;
             var blogList = _blogService.GetAllBlog(model.DataTablesRequest);
