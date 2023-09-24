@@ -1,14 +1,14 @@
-﻿using MVCTraining.DTOs.BlogDTO;
-using MVCTraining.Models.BlogModel;
+﻿using MVCTraining.Dtos.Blog;
+using MVCTraining.Models.Blog;
 
-namespace MVCTraining.Models.ChangeModel
+namespace MVCTraining.Models
 {
     public static class ChangeModel
     {
-        public static BlogDTO Change(this BlogRequestModel model)
+        public static BlogDto Change(this BlogRequestModel model)
         {
             if (model == null) return null;
-            return new BlogDTO
+            return new BlogDto
             {
                 Blog_Id = model.BlogId,
                 Blog_Title = model.BlogTitle,
@@ -17,7 +17,7 @@ namespace MVCTraining.Models.ChangeModel
             };
         }
         
-        public static BlogRequestModel Change(this BlogDTO dto)
+        public static BlogRequestModel Change(this BlogDto dto)
         {
             if(dto == null) return null;
             return new BlogRequestModel

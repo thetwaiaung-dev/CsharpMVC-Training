@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MVCTraining.Models.BlogModel;
-using MVCTraining.Models.RequestForm;
-using MVCTraining.Repositorys.Blog;
 using Newtonsoft.Json;
 using System.Text.Json.Serialization;
+using MVCTraining.Models.Blog;
+using MVCTraining.Repositories.Blog;
 
 namespace MVCTraining.Controllers
 {

@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MVCTraining.DTOs.BlogDTO
+namespace MVCTraining.Dtos.Blog
 {
     [Table("Tbl_Blog")]
-    public class BlogDTO
+    public class BlogDto
     {
         [Key]
         public long Blog_Id { get; set; }

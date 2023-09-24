@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System;
-using MVCTraining.Models.RequestForm;
 using System.Collections.Generic;
+using MVCTraining.Models;
 
 namespace MVCTraining.Controllers
 {

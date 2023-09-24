@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace MVCTraining.Models.RequestForm
+﻿namespace MVCTraining.Models
 {
     public class DataTablesRequest
     {

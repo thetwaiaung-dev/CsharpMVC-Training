@@ -1,25 +1,23 @@
-﻿using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Options;
-using MVCTraining.DBHelper;
-using MVCTraining.DTOs.BlogDTO;
-using MVCTraining.Models.RequestForm;
-using MVCTraining.Resources;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Common;
-namespace MVCTraining.Repositorys.BlogRepository
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Options;
+using MVCTraining.DbHelper;
+using MVCTraining.Dtos.Blog;
+using MVCTraining.Resources;
+
+namespace MVCTraining.Repositories.Blog
 {
-    public class BlogDAO : IRepository<BlogDTO>
+    public class BlogDao : IRepository<BlogDto>
     {
         private readonly ConnectionString _connection;
 
-        public BlogDAO(IOptions<ConnectionString> connection)
+        public BlogDao(IOptions<ConnectionString> connection)
         {
             _connection = connection.Value;
         }
 
-        public int Create(BlogDTO item)
+        public int Create(BlogDto item)
         {
             throw new System.NotImplementedException();
         }
@@ -29,12 +27,12 @@ namespace MVCTraining.Repositorys.BlogRepository
             throw new System.NotImplementedException();
         }
 
-        public int DuplicateCreate(BlogDTO item)
+        public int DuplicateCreate(BlogDto item)
         {
             throw new System.NotImplementedException();
         }
 
-        public int DuplicateUpdate(BlogDTO item)
+        public int DuplicateUpdate(BlogDto item)
         {
             throw new System.NotImplementedException();
         }
@@ -97,9 +95,9 @@ namespace MVCTraining.Repositorys.BlogRepository
             return count;
         }
 
-        public List<BlogDTO> GetAll(string searchParam, string pagination)
+        public List<BlogDto> GetAll(string searchParam, string pagination)
         {
-            List<BlogDTO> blogList = new List<BlogDTO>();
+            List<BlogDto> blogList = new List<BlogDto>();
             try
             {
                 using (var con = new SqlConnection(_connection.SqlString))
@@ -116,7 +114,7 @@ namespace MVCTraining.Repositorys.BlogRepository
                     {
                         while (rd.Read())
                         {
-                            BlogDTO dto = new BlogDTO();
+                            BlogDto dto = new BlogDto();
                             dto.Blog_Id = Convert.ToInt64(rd["Blog_Id"]);
                             dto.Blog_Title = rd["Blog_Title"].ToString();
                             dto.Blog_Author = rd["Blog_Author"].ToString();
@@ -133,12 +131,12 @@ namespace MVCTraining.Repositorys.BlogRepository
             return blogList;
         }
 
-        public BlogDTO GetOne(long id)
+        public BlogDto GetOne(long id)
         {
             throw new System.NotImplementedException();
         }
         
-        public int Update(long id, BlogDTO item)
+        public int Update(long id, BlogDto item)
         {
             throw new System.NotImplementedException();
         }

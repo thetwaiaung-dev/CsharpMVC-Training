@@ -1,21 +1,13 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using MVCTraining.DTOs.BlogDTO;
-using MVCTraining.Models;
-using MVCTraining.Models.BlogModel;
-using MVCTraining.Models.ChangeModel;
-using MVCTraining.Models.RequestForm;
-using MVCTraining.Repositorys.BlogRepository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using MVCTraining.Models;
+using MVCTraining.Models.Blog;
 
-namespace MVCTraining.Repositorys.Blog
+namespace MVCTraining.Repositories.Blog
 {
     public class BlogService
     {
-        private readonly BlogDAO _blogDAO;
+        private readonly BlogDao _blogDAO;
 
-        public BlogService(BlogDAO blogDAO)
+        public BlogService(BlogDao blogDAO)
         {
             _blogDAO = blogDAO;
         }

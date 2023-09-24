@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MVCTraining.DBHelper
+namespace MVCTraining.DbHelper
 {
     public interface IRepository<T>
     {

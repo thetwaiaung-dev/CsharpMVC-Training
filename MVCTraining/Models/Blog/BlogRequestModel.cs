@@ -1,6 +1,4 @@
-﻿using MVCTraining.Models.RequestForm;
-
-namespace MVCTraining.Models.BlogModel
+﻿namespace MVCTraining.Models.Blog
 {
     public class BlogRequestModel
     {
