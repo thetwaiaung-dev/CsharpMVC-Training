@@ -2,9 +2,9 @@
 using System.Linq;
 using System;
 using System.Collections.Generic;
-using MVCTraining.Models;
+using MvcTraining.Models;
 
-namespace MVCTraining.Controllers
+namespace MvcTraining.Controllers
 {
     public class BaseController : Controller
     {

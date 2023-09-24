@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Text.Json.Serialization;
-using MVCTraining.Models.Blog;
-using MVCTraining.Repositories.Blog;
+using MvcTraining.Models.Blog;
+using MvcTraining.Repositories.Blog;
 
-namespace MVCTraining.Controllers
+namespace MvcTraining.Controllers
 {
     public class BlogController : BaseController
     {

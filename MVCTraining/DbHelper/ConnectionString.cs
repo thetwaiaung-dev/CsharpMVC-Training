@@ -1,4 +1,4 @@
-﻿namespace MVCTraining.DbHelper
+﻿namespace MvcTraining.DbHelper
 {
     public class ConnectionString
     {

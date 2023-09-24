@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Options;
-using MVCTraining.DbHelper;
-using MVCTraining.Dtos.Blog;
-using MVCTraining.Resources;
+using MvcTraining.DbHelper;
+using MvcTraining.Dtos.Blog;
+using MvcTraining.Resources;
 
-namespace MVCTraining.Repositories.Blog
+namespace MvcTraining.Repositories.Blog
 {
     public class BlogDao : IRepository<BlogDto>
     {

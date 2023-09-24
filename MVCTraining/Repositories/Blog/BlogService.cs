@@ -1,7 +1,7 @@
-﻿using MVCTraining.Models;
-using MVCTraining.Models.Blog;
+﻿using MvcTraining.Models;
+using MvcTraining.Models.Blog;
 
-namespace MVCTraining.Repositories.Blog
+namespace MvcTraining.Repositories.Blog
 {
     public class BlogService
     {

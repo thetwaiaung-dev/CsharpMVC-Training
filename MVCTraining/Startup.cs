@@ -4,14 +4,14 @@ using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using MVCTraining.DbHelper;
+using MvcTraining.DbHelper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MVCTraining.Repositories.Blog;
+using MvcTraining.Repositories.Blog;
 
-namespace MVCTraining
+namespace MvcTraining
 {
     public class Startup
     {

@@ -1,7 +1,7 @@
-﻿using MVCTraining.Dtos.Blog;
-using MVCTraining.Models.Blog;
+﻿using MvcTraining.Dtos.Blog;
+using MvcTraining.Models.Blog;
 
-namespace MVCTraining.Models
+namespace MvcTraining.Models
 {
     public static class ChangeModel
     {

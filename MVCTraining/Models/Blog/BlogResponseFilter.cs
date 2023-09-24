@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using MVCTraining.Dtos.Blog;
+using MvcTraining.Dtos.Blog;
 
-namespace MVCTraining.Models.Blog
+namespace MvcTraining.Models.Blog
 {
     public class BlogResponseFilter : ResponseModel
     {

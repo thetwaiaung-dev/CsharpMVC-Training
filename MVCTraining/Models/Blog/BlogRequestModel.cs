@@ -1,4 +1,4 @@
-﻿namespace MVCTraining.Models.Blog
+﻿namespace MvcTraining.Models.Blog
 {
     public class BlogRequestModel
     {

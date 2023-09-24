@@ -1,4 +1,4 @@
-﻿namespace MVCTraining.Models
+﻿namespace MvcTraining.Models
 {
     public class DataTablesRequest
     {

@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using MVCTraining.Models;
+using MvcTraining.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MVCTraining.Controllers
+namespace MvcTraining.Controllers
 {
     public class HomeController : Controller
     {

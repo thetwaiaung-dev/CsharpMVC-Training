@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MVCTraining.Dtos.Blog
+namespace MvcTraining.Dtos.Blog
 {
     [Table("Tbl_Blog")]
     public class BlogDto

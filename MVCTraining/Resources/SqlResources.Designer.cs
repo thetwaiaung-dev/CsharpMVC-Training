@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MVCTraining.Resources {
+namespace MvcTraining.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace MVCTraining.Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MVCTraining.Resources.SqlResources", typeof(SqlResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MvcTraining.Resources.SqlResources", typeof(SqlResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
