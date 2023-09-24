@@ -4,12 +4,12 @@ using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using MvcTraining.DbHelper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MvcTraining.Repositories.Blog;
+using MvcTraining.Models;
 
 namespace MvcTraining
 {
@@ -26,7 +26,7 @@ namespace MvcTraining
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.Configure<ConnectionString>(Configuration.GetSection("ConnectionStrings"));
+            services.Configure<ConnectionStringModel>(Configuration.GetSection("ConnectionStrings"));
 
             services.AddScoped<BlogService>();
             services.AddScoped<BlogDao>();

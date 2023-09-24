@@ -2,17 +2,16 @@
 using System.Collections.Generic;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Options;
-using MvcTraining.DbHelper;
-using MvcTraining.Dtos.Blog;
+using MvcTraining.Models;
 using MvcTraining.Resources;
 
 namespace MvcTraining.Repositories.Blog
 {
     public class BlogDao : IRepository<BlogDto>
     {
-        private readonly ConnectionString _connection;
+        private readonly ConnectionStringModel _connection;
 
-        public BlogDao(IOptions<ConnectionString> connection)
+        public BlogDao(IOptions<ConnectionStringModel> connection)
         {
             _connection = connection.Value;
         }

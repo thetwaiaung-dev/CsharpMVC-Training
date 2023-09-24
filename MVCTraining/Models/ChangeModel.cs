@@ -1,5 +1,4 @@
-﻿using MvcTraining.Dtos.Blog;
-using MvcTraining.Models.Blog;
+﻿using MvcTraining.Repositories.Blog;
 
 namespace MvcTraining.Models
 {
