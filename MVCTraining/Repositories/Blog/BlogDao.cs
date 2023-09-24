@@ -130,7 +130,7 @@ namespace MvcTraining.Repositories.Blog
             return blogList;
         }
 
-        public BlogDto GetOne(long id)
+        public BlogDto GetById(long id)
         {
             throw new System.NotImplementedException();
         }
