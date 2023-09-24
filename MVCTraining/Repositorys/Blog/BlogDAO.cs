@@ -2,11 +2,11 @@
 using Microsoft.Extensions.Options;
 using MVCTraining.DBHelper;
 using MVCTraining.DTOs.BlogDTO;
+using MVCTraining.Resources;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-
 namespace MVCTraining.Repositorys.BlogRepository
 {
     public class BlogDAO : IRepository<BlogDTO>
@@ -28,12 +28,12 @@ namespace MVCTraining.Repositorys.BlogRepository
             throw new System.NotImplementedException();
         }
 
-        public bool DuplicateCreate(BlogDTO item)
+        public int DuplicateCreate(BlogDTO item)
         {
             throw new System.NotImplementedException();
         }
 
-        public bool DuplicateUpdate(BlogDTO item)
+        public int DuplicateUpdate(BlogDTO item)
         {
             throw new System.NotImplementedException();
         }
@@ -41,14 +41,13 @@ namespace MVCTraining.Repositorys.BlogRepository
         public List<BlogDTO> GetAll()
         {
             List<BlogDTO> blogList = new List<BlogDTO>();
-            string query = "select * from Tbl_Blog";
             try
             {
                 using (var con = new SqlConnection(_connection.SqlString))
                 {
                     con.Open();
                     var cmd = con.CreateCommand();
-                    cmd.CommandText = query;
+                    cmd.CommandText = SqlResources.GetAllBlog;
                     using(SqlDataReader rd = cmd.ExecuteReader())
                     {
                         while (rd.Read())

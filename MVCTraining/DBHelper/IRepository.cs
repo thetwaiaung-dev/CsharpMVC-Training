@@ -7,9 +7,9 @@ namespace MVCTraining.DBHelper
         List<T> GetAll();
         T GetOne(long id);
         int Create(T item);
-        bool DuplicateCreate(T item);
+        int DuplicateCreate(T item);
         int Update(long id, T item);
-        bool DuplicateUpdate(T item);
+        int DuplicateUpdate(T item);
         int Delete(long id);
     }
 }
