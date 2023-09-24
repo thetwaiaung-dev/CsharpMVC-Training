@@ -1,4 +1,4 @@
-﻿namespace MvcTraining
+﻿namespace MvcTraining.Models
 {
     public class ResponseModel
     {

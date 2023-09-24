@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using MvcTraining.Models;
 
 namespace MvcTraining.Repositories.Blog
 {
