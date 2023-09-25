@@ -11,6 +11,19 @@ namespace MvcTraining.Repositories.Blog
             _blogDAO = blogDAO;
         }
 
+        public int SaveBlog(BlogDto dto)
+        {
+            dto.Is_Deleted = false;
+            int resut = _blogDAO.Create(dto);
+            return resut;
+        }
+
+        public BlogDto GetBlogById(int id)
+        {
+            BlogDto blogDto = _blogDAO.GetById(id);
+            return blogDto;
+        }
+
         public BlogResponseFilter GetAllBlog(DataTablesRequest requestModel)
         {
             BlogResponseFilter response = new BlogResponseFilter();

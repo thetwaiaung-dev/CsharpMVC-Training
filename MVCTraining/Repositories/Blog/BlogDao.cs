@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Options;
+using MvcTraining.Exceptions;
 using MvcTraining.Models;
 using MvcTraining.Resources;
 
@@ -18,7 +21,36 @@ namespace MvcTraining.Repositories.Blog
 
         public int Create(BlogDto item)
         {
-            throw new System.NotImplementedException();
+            int result = 0;
+            int duplicateNameResult=DuplicateCreate(item);
+            if(duplicateNameResult >0 ) 
+            {
+                throw new DuplicateName("Blog title has already exists.");
+            }
+            try
+            {
+                using (var con = new SqlConnection(_connection.DbConnection))
+                {
+                    con.Open();
+                    var cmd = con.CreateCommand();
+                    cmd.CommandText = SqlResources.SaveBlog;
+                    cmd.Parameters.AddWithValue("@BlogTitle", item.Blog_Title);
+                    cmd.Parameters.AddWithValue("@BlogAuthor", item.Blog_Author);
+                    cmd.Parameters.AddWithValue("@BlogContent", item.Blog_Content);
+                    cmd.Parameters.AddWithValue("@IsDeleted", item.Is_Deleted);
+                    
+                    result=cmd.ExecuteNonQuery();
+
+                    con.Close();
+
+            }
+            }
+            catch(Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return result;
+           
         }
 
         public int Delete(long id)
@@ -28,7 +60,26 @@ namespace MvcTraining.Repositories.Blog
 
         public int DuplicateCreate(BlogDto item)
         {
-            throw new System.NotImplementedException();
+            int result = 0;
+            try
+            {
+                using(var con=new SqlConnection(_connection.DbConnection))
+                {
+                    con.Open();
+                    var cmd = con.CreateCommand();
+                    cmd.CommandText = SqlResources.DuplicateName;
+                    cmd.Parameters.AddWithValue("@BlogTitle", item.Blog_Title);
+
+                    result = (int)cmd.ExecuteScalar();
+                    con.Close();
+                }
+            }
+            catch(Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+
+            return result;
         }
 
         public int DuplicateUpdate(BlogDto item)
@@ -132,7 +183,28 @@ namespace MvcTraining.Repositories.Blog
 
         public BlogDto GetById(long id)
         {
-            throw new System.NotImplementedException();
+            BlogDto blogDto = new BlogDto();
+
+            using(var con=new SqlConnection(_connection.DbConnection))
+            {
+                con.Open();
+                var cmd = con.CreateCommand();
+                cmd.CommandText = SqlResources.GetBlogById;
+                cmd.Parameters.AddWithValue("@BlogId", id);
+                using(SqlDataReader rd = cmd.ExecuteReader()) 
+                {
+                    while (rd.Read())
+                    {
+                        blogDto.Blog_Id = Convert.ToInt64(rd["Blog_Id"]);
+                        blogDto.Blog_Title = rd["Blog_Title"].ToString();
+                        blogDto.Blog_Author = rd["Blog_Author"].ToString();
+                        blogDto.Blog_Content = rd["Blog_Content"].ToString();
+                    }
+                }
+                con.Close();
+            }
+
+            return blogDto;
         }
         
         public int Update(long id, BlogDto item)

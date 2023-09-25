@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewData["Title"] = "Create Blog";
+}
+@model MvcTraining.Repositories.Blog.BlogRequestModel;
+
+@if (ViewData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger" id="errorMessage">
+        @ViewData["ErrorMessage"]
+    </div>
+}
+
+<div class="container">
+    <h2 class="container-fluid text-center mb-5">Add Blog</h2>
+    <form action="/Blog/SaveBlog" method="post" class="container-fluid form" >
+        <div class="mb-3 row">
+            <label for="blogTitle" class="col-sm-2 col-form-label">Blog Title</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="blogTitle" name="BlogTitle">
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="blogAuthor" class="col-sm-2 col-form-label">Blog Author</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="blogAuthor" name="BlogAuthor">
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="blogContent" class="col-sm-2 col-form-label">Blog Content</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="blogContent" name="BlogContent">
+            </div>
+        </div>
+        <div class="mb-5 ">
+            <button class=" col-2 btn btn-primary" style="margin-left:180px">Add</button>
+        </div>
+        
+    </form>
+</div>

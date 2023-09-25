@@ -31,7 +31,7 @@ function dataTable() {
                 data: 'blog_Id',
                 className: "text-center",
                 render: function (data) {
-                    return '<a href="' + data + '">' +
+                    return '<a href="/Blog/UpdateBlogView?id=' + data + '">' +
                         '<i class="fa-solid fa-pen-to-square"></i></a>';
                 }
             },

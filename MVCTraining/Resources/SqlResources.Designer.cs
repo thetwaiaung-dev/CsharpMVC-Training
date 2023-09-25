@@ -70,11 +70,55 @@ namespace MvcTraining.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SELECT COUNT(Tbl_Blog.Blog_Id) FROM Tbl_Blog WHERE Blog_Title=@BlogTitle;.
+        /// </summary>
+        internal static string DuplicateName {
+            get {
+                return ResourceManager.GetString("DuplicateName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select Blog_Id,Blog_Title,Blog_Author,Blog_Content from Tbl_Blog where Is_Deleted = 0.
         /// </summary>
         internal static string GetAllBlog {
             get {
                 return ResourceManager.GetString("GetAllBlog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT Blog_Id
+        ///      ,Blog_Title
+        ///      ,Blog_Author
+        ///      ,Blog_Content
+        ///  FROM Tbl_Blog WHERE Blog_Id=@BlogId;.
+        /// </summary>
+        internal static string GetBlogById {
+            get {
+                return ResourceManager.GetString("GetBlogById", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to INSERT INTO Tbl_Blog (
+        ///  Blog_Title,Blog_Author,Blog_Content,Is_Deleted)
+        ///  VALUES (@BlogTitle,@BlogAuthor,@BlogContent,@IsDeleted);.
+        /// </summary>
+        internal static string SaveBlog {
+            get {
+                return ResourceManager.GetString("SaveBlog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UPDATE Tbl_Blog Set 
+        ///Blog_Title=@BlogTitle,Blog_Author=@BlogAuthor,Blog_Content=@BlogContent,Is_Deleted=@IsDeleted
+        ///  WHERE Blog_Id=@Id;.
+        /// </summary>
+        internal static string UpdateBlog {
+            get {
+                return ResourceManager.GetString("UpdateBlog", resourceCulture);
             }
         }
     }

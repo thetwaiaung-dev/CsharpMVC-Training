@@ -123,4 +123,24 @@
   <data name="BlogCount" xml:space="preserve">
     <value>select count(Blog_Id) as Blog_Count from Tbl_Blog where Is_Deleted = 0</value>
   </data>
+  <data name="SaveBlog" xml:space="preserve">
+    <value>INSERT INTO Tbl_Blog (
+  Blog_Title,Blog_Author,Blog_Content,Is_Deleted)
+  VALUES (@BlogTitle,@BlogAuthor,@BlogContent,@IsDeleted);</value>
+  </data>
+  <data name="UpdateBlog" xml:space="preserve">
+    <value>UPDATE Tbl_Blog Set 
+Blog_Title=@BlogTitle,Blog_Author=@BlogAuthor,Blog_Content=@BlogContent,Is_Deleted=@IsDeleted
+  WHERE Blog_Id=@Id;</value>
+  </data>
+  <data name="DuplicateName" xml:space="preserve">
+    <value>SELECT COUNT(Tbl_Blog.Blog_Id) FROM Tbl_Blog WHERE Blog_Title=@BlogTitle;</value>
+  </data>
+  <data name="GetBlogById" xml:space="preserve">
+    <value>SELECT Blog_Id
+      ,Blog_Title
+      ,Blog_Author
+      ,Blog_Content
+  FROM Tbl_Blog WHERE Blog_Id=@BlogId;</value>
+  </data>
 </root>

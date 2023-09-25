@@ -9,6 +9,7 @@ namespace MvcTraining.Repositories.Blog
         public string BlogAuthor { get; set; }
         public string BlogContent { get; set; }
     }
+
     public class BlogDataRequestModel
     {
         public DataTablesRequest DataTablesRequest { get; set; }
