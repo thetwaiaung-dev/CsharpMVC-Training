@@ -28,5 +28,11 @@ namespace MvcTraining.Controllers
             var blogList = _blogService.GetAllBlog(model.DataTablesRequest);
             return ToJson(requestData.Draw, blogList.RequestTotal, blogList.RequestFilter, blogList.BlogList);
         }
+
+        public IActionResult CreateBlog()
+        {
+            BlogRequestModel model = new BlogRequestModel();
+            return View(model);
+        }
     }
 }
