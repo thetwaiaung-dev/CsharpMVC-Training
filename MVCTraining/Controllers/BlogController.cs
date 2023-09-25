@@ -42,6 +42,7 @@ namespace MvcTraining.Controllers
 
         public IActionResult CreateBlog()
         {
+
             string errorMessage = TempData["ErrorMessage"] as string;
             BlogRequestModel requestModel = new BlogRequestModel();
             ViewData["ErrorMessage"] = errorMessage;
@@ -71,5 +72,6 @@ namespace MvcTraining.Controllers
         }
 
       
+
     }
 }

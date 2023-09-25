@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿
 @{
     ViewData["Title"] = "Create Blog";
@@ -38,3 +39,33 @@
         
     </form>
 </div>
+=======
+﻿<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <form method="post" asp-controller="Blog" asp-action="Save">
+                <div class="mb-3">
+                    <label for="title" class="form-label">Blog Title</label>
+                    <input type="text" class="form-control" id="title" placeholder="Enter blog title">
+                </div>
+                <div class="mb-3">
+                    <label for="author" class="form-label">Blog Author</label>
+                    <input type="text" class="form-control" id="author" placeholder="Enter blog author">
+                </div>
+                <div class="mb-3">
+                    <label for="content" class="form-label">Blog Content</label>
+                    <textarea class="form-control" id="content" rows="5" placeholder="Enter blog content"></textarea>
+                </div>
+                <hr>
+                <div class="justify-content-between border-left">
+                    <button type="submit" class="btn btn-success">Save</button>
+                    <a href="Blog/Index" value="Cancel" class="btn btn-danger">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/js/pages/Blog/blog.js" asp-append-version="true"></script>
+}
+>>>>>>> 3959e07127a5de58d2cfb068f641101d5cf2346d

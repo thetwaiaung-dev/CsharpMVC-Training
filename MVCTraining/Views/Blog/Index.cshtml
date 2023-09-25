@@ -1,6 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Blog List";
 }
+<<<<<<< HEAD
 <a asp-controller="Blog" asp-action="CreateBlog"><button type="submit" class="mb-3 btn btn-outline-primary">Add New Blog</button></a>
 <table class="table" id="blog_table">
     <thead>
@@ -12,6 +13,26 @@
         </tr>
     </thead>
 </table>
+=======
+<div class="container-fluid">
+    <div class="col">
+        <section>
+            <a href="Blog/CreateBlog" type="button" class="btn btn-primary">Create Blog</a>
+        </section>
+        <hr />
+        <table class="table" id="blog_table">
+            <thead>
+                <tr>
+                    <th scope="col">Blog Title</th>
+                    <th scope="col">Blog Author</th>
+                    <th scope="col">Blog Content</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+>>>>>>> 3959e07127a5de58d2cfb068f641101d5cf2346d
 @section Scripts{
     <script src="~/js/pages/Blog/blog.js" asp-append-version="true"></script>
 }
