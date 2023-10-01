@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "All Recipe";
+}
+
+<a asp-controller="Recipe" asp-action="Create"><button type="submit" class="mb-3 btn btn-outline-primary add-btn">Add New Recipe</button></a>
+<table class="table" id="recipe_table">
+    <thead>
+        <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Author</th>
+            <th scope="col">Category</th>
+            <th scope="col">Description</th>
+            <th scope="col">Instruction</th>
+            <th scope="col">Preparation Time</th>
+            <th scope="col">Cooking Time</th>
+            <th scope="col">Created Date</th>
+            <th scope="col">Dish Photo</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+</table>
+
+@section Scripts{
+    <script src="~/js/pages/Recipe/recipe.js" asp-append-version="true"></script>
+}

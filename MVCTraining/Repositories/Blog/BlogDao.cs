@@ -25,7 +25,7 @@ namespace MvcTraining.Repositories.Blog
             int duplicateNameResult=DuplicateCreate(item);
             if(duplicateNameResult >0 ) 
             {
-                throw new DuplicateName("Blog title has already exists.");
+                throw new DuplicateName("This blog has already exists.");
             }
             try
             {
@@ -55,7 +55,27 @@ namespace MvcTraining.Repositories.Blog
 
         public int Delete(long id)
         {
-            throw new System.NotImplementedException();
+            int result = 0;
+            try
+            {
+                using(var con=new SqlConnection(_connection.DbConnection))
+                {
+                    con.Open();
+                    var cmd = con.CreateCommand();
+                    cmd.CommandText = SqlResources.DeleteBlogBySort;
+                    cmd.Parameters.AddWithValue("@IsDeleted", true);
+                    cmd.Parameters.AddWithValue("@BlogId", id);
+
+                    result = cmd.ExecuteNonQuery();
+                    con.Close();
+
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return result;
         }
 
         public int DuplicateCreate(BlogDto item)
@@ -69,6 +89,8 @@ namespace MvcTraining.Repositories.Blog
                     var cmd = con.CreateCommand();
                     cmd.CommandText = SqlResources.DuplicateName;
                     cmd.Parameters.AddWithValue("@BlogTitle", item.Blog_Title);
+                    cmd.Parameters.AddWithValue("@BlogAuthor", item.Blog_Author);
+                    cmd.Parameters.AddWithValue("@IsDeleted", false);
 
                     result = (int)cmd.ExecuteScalar();
                     con.Close();
@@ -84,7 +106,29 @@ namespace MvcTraining.Repositories.Blog
 
         public int DuplicateUpdate(BlogDto item)
         {
-            throw new System.NotImplementedException();
+            int result = 0;
+            try
+            {
+                using(var con=new SqlConnection(_connection.DbConnection))
+                {
+                    con.Open();
+                    var cmd = con.CreateCommand();
+                    cmd.CommandText= SqlResources.DuplicateUpdate;
+                    cmd.Parameters.AddWithValue("@BlogTitle", item.Blog_Title);
+                    cmd.Parameters.AddWithValue("@BlogAuthor", item.Blog_Author);
+                    cmd.Parameters.AddWithValue("@BlogId", item.Blog_Id);
+                    cmd.Parameters.AddWithValue("@IsDeleted", false);
+
+                    result = (int)cmd.ExecuteScalar();
+                    con.Close();
+
+                }
+            }
+            catch( Exception e) 
+            {
+                throw new Exception (e.Message);
+            }
+            return result;
         }
 
         public int ListCount()
@@ -207,9 +251,39 @@ namespace MvcTraining.Repositories.Blog
             return blogDto;
         }
         
-        public int Update(long id, BlogDto item)
+        public int Update(BlogDto item)
         {
-            throw new System.NotImplementedException();
+            int duplicateNameResult = DuplicateUpdate(item);
+            if (duplicateNameResult > 0)
+            {
+                throw new DuplicateName("This blog has already existed.");
+            }
+
+            int result = 0;
+            try
+            {
+                using (var con = new SqlConnection(_connection.DbConnection))
+                {
+                    con.Open();
+                    var cmd = con.CreateCommand();
+                    cmd.CommandText = SqlResources.UpdateBlog;
+                    cmd.Parameters.AddWithValue("@BlogTitle", item.Blog_Title);
+                    cmd.Parameters.AddWithValue("@BlogAuthor", item.Blog_Author);
+                    cmd.Parameters.AddWithValue("@BlogContent", item.Blog_Content);
+                    cmd.Parameters.AddWithValue("@BlogId", item.Blog_Id);
+
+                    result = cmd.ExecuteNonQuery();
+                    con.Close();
+
+                }
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return result;
+           
         }
     }
 }

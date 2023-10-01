@@ -1,4 +1,5 @@
-﻿using MvcTraining.Models;
+﻿using Azure.Core;
+using MvcTraining.Models;
 
 namespace MvcTraining.Repositories.Blog
 {
@@ -16,6 +17,18 @@ namespace MvcTraining.Repositories.Blog
             dto.Is_Deleted = false;
             int resut = _blogDAO.Create(dto);
             return resut;
+        }
+
+        public int UpdateBlog(BlogDto dto)
+        {
+            int result=_blogDAO.Update(dto);
+            return result;
+        }
+
+        public int DeleteBlog(int id)
+        {
+            int result=_blogDAO.Delete(id);
+            return result;
         }
 
         public BlogDto GetBlogById(int id)
@@ -42,11 +55,11 @@ namespace MvcTraining.Repositories.Blog
             {
                 switch (sortColumn)
                 {
-                    case "Blog_Title":
-                        sortColumnParam = " order by Blog_Title" + sortColumnDirection;
+                    case "blog_Title":
+                        sortColumnParam = " order by Blog_Title " + sortColumnDirection;
                         break;
-                    case "Blog_Author":
-                        sortColumnParam = " order by Blog_Author" + sortColumnDirection;
+                    case "blog_Author":
+                        sortColumnParam = " order by Blog_Author " + sortColumnDirection;
                         break;
                     default:
                         sortColumnParam = " Order By Blog_Id desc ";

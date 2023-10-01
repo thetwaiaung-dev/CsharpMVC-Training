@@ -6,6 +6,7 @@ using System;
 using MvcTraining.Models;
 using System.Data;
 using MvcTraining.Exceptions;
+using MvcTraining.Repositories.Recipe;
 
 namespace MvcTraining.Controllers
 {
@@ -20,15 +21,10 @@ namespace MvcTraining.Controllers
 
         public IActionResult Index()
         {
+            string successMessage = TempData["SuccessMessage"] as string;
+            ViewData["SuccessMessage"]=successMessage;
             return View();
-        }
-
-        public IActionResult UpdateBlogView(int id)
-        {
-            BlogDto blogDto=_blogService.GetBlogById(id);
-            BlogRequestModel blogRequest = ChangeModel.Change(blogDto);
-            return View(blogRequest);
-        }
+        }   
 
         [HttpPost]
         public IActionResult GetAllBlog()
@@ -54,24 +50,69 @@ namespace MvcTraining.Controllers
         {
             if (blogRequestModel.BlogTitle == null || blogRequestModel.BlogAuthor == null || blogRequestModel.BlogContent == null)
             {
-                TempData["ErrorMessage"] = "Data Field is required";
+                TempData["ErrorMessage"] = "Blog Field is required";
                 return RedirectToAction("CreateBlog");
             }
             BlogDto blogDto = ChangeModel.Change(blogRequestModel);
             try
             {
-                int saveResult = _blogService.SaveBlog(blogDto);
+                long saveResult = _blogService.SaveBlog(blogDto);
             }
             catch (DuplicateName ex)
             {
-                TempData["ErrorMessage"] = ex.Message;
-                return RedirectToAction("CreateBlog");
+                ViewData["ErrorMessage"] = ex.Message;
+                return View("CreateBlog",blogRequestModel);
             }
-
+            TempData["SuccessMessage"] = "Blog is successfully created.";
             return RedirectToAction("Index");
         }
 
-      
+        public IActionResult UpdateBlogView(int id)
+        {
+            //to catch error messgage
+            string errorMessage = TempData["ErrorMessage"] as string;
+            ViewData["ErrorMessage"] = errorMessage;
+
+            BlogDto blogDto = _blogService.GetBlogById(id);
+            BlogRequestModel blogRequest = ChangeModel.Change(blogDto);
+            return View(blogRequest);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateBlog(BlogRequestModel blogRequestModel)
+        {
+            if (blogRequestModel.BlogTitle == null || blogRequestModel.BlogAuthor == null || blogRequestModel.BlogContent == null)
+            {
+                ViewData["ErrorMessage"] = "Blog Field is required";
+                return View("UpdateBlogView",blogRequestModel);
+            }
+            BlogDto blogDto= ChangeModel.Change(blogRequestModel);
+            try
+            {
+                int updateResult=_blogService.UpdateBlog(blogDto);
+            }catch  (DuplicateName ex)
+            {
+                ViewData["ErrorMessage"] = ex.Message;
+                return View("UpdateBlogView",blogRequestModel);
+            }
+            TempData["SuccessMessage"] = "Blog is successfully updated.";
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult DeleteBlog(int id)
+        {
+            int result=_blogService.DeleteBlog(id);
+            if(result > 0)
+            {
+                TempData["SuccessMessage"] = "Blog is successfully deleted";
+                
+            }
+            else
+            {
+                TempData["SuccessMessage"] = "Delete fail."; 
+            }
+            return RedirectToAction("Index");
+        }
 
     }
 }

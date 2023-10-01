@@ -129,12 +129,13 @@
   VALUES (@BlogTitle,@BlogAuthor,@BlogContent,@IsDeleted);</value>
   </data>
   <data name="UpdateBlog" xml:space="preserve">
-    <value>UPDATE Tbl_Blog Set 
-Blog_Title=@BlogTitle,Blog_Author=@BlogAuthor,Blog_Content=@BlogContent,Is_Deleted=@IsDeleted
-  WHERE Blog_Id=@Id;</value>
+    <value>UPDATE Tbl_Blog SET 
+  Blog_Title=@BlogTitle
+  ,Blog_Author=@BlogAuthor
+  ,Blog_Content=@BlogContent WHERE Blog_Id=@BlogId;</value>
   </data>
   <data name="DuplicateName" xml:space="preserve">
-    <value>SELECT COUNT(Tbl_Blog.Blog_Id) FROM Tbl_Blog WHERE Blog_Title=@BlogTitle;</value>
+    <value>SELECT COUNT(Tbl_Blog.Blog_Id) FROM Tbl_Blog WHERE Blog_Title=@BlogTitle AND Blog_Author=@BlogAuthor And Is_Deleted=@IsDeleted;</value>
   </data>
   <data name="GetBlogById" xml:space="preserve">
     <value>SELECT Blog_Id
@@ -142,5 +143,32 @@ Blog_Title=@BlogTitle,Blog_Author=@BlogAuthor,Blog_Content=@BlogContent,Is_Delet
       ,Blog_Author
       ,Blog_Content
   FROM Tbl_Blog WHERE Blog_Id=@BlogId;</value>
+  </data>
+  <data name="DeleteBlogBySort" xml:space="preserve">
+    <value>UPDATE Tbl_Blog SET
+  Is_Deleted=@IsDeleted WHERE Blog_Id=@BlogId;</value>
+  </data>
+  <data name="DuplicateUpdate" xml:space="preserve">
+    <value>SELECT COUNT(Tbl_Blog.Blog_Id) FROM Tbl_Blog WHERE Blog_Title=@BlogTitle AND Blog_Author=@BlogAuthor And Blog_Id!=@BlogId And Is_Deleted=@IsDeleted;</value>
+  </data>
+  <data name="SaveIngredient" xml:space="preserve">
+    <value>insert into Tbl_Ingredient(
+	name
+	,quantity
+	,unit,recipe_id
+) values (@name,@quantity,@unit,@recipeId)</value>
+  </data>
+  <data name="SaveRecipe" xml:space="preserve">
+    <value>insert into Tbl_Recipe(	title,descript,instruction,prepare_time,cooking_time,author,created_date,modified_date,category,dish_image
+) output inserted.id values(@title,@descript,@instruction,@prepareTime,@cookingTime,@author,@createdDate,@modifiedDate,@category,@image)</value>
+  </data>
+  <data name="DeleteRecipe" xml:space="preserve">
+    <value>delete Tbl_Recipe where id=@id;</value>
+  </data>
+  <data name="GetAllRecipe" xml:space="preserve">
+    <value>select title,descript,instruction,author,prepare_time,cooking_time,dish_image,category,created_date from Tbl_Recipe where is_deleted=0</value>
+  </data>
+  <data name="RecipeCount" xml:space="preserve">
+    <value>select count(id)  from Tbl_Recipe where is_deleted=0</value>
   </data>
 </root>

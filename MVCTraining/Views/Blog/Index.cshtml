@@ -1,8 +1,34 @@
 ﻿@{
     ViewData["Title"] = "Blog List";
 }
-<<<<<<< HEAD
-<a asp-controller="Blog" asp-action="CreateBlog"><button type="submit" class="mb-3 btn btn-outline-primary">Add New Blog</button></a>
+
+<div class="modal fade" id="delete-blog-modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete Blog</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure want to delete this blog?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <a id="deleteAtag">
+                    <button type="button" class="btn btn-danger">Delete</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (ViewData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success" id="successMessage">
+        @ViewData["SuccessMessage"]
+    </div>
+}
+<a asp-controller="Blog" asp-action="CreateBlog"><button type="submit" class="mb-3 btn btn-outline-primary add-btn">Add New Blog</button></a>
 <table class="table" id="blog_table">
     <thead>
         <tr>
@@ -13,26 +39,9 @@
         </tr>
     </thead>
 </table>
-=======
-<div class="container-fluid">
-    <div class="col">
-        <section>
-            <a href="Blog/CreateBlog" type="button" class="btn btn-primary">Create Blog</a>
-        </section>
-        <hr />
-        <table class="table" id="blog_table">
-            <thead>
-                <tr>
-                    <th scope="col">Blog Title</th>
-                    <th scope="col">Blog Author</th>
-                    <th scope="col">Blog Content</th>
-                    <th scope="col">Action</th>
-                </tr>
-            </thead>
-        </table>
-    </div>
-</div>
->>>>>>> 3959e07127a5de58d2cfb068f641101d5cf2346d
+
 @section Scripts{
     <script src="~/js/pages/Blog/blog.js" asp-append-version="true"></script>
+    <script src="~/js/pages/Blog/blogAlertBox.js" asp-append-version="true"></script>
+    <script src="~/js/pages/Blog/blogModalAlert.js" asp-append-version="true"></script>
 }

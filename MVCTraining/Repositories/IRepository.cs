@@ -10,7 +10,7 @@ namespace MvcTraining.Repositories
         int ListCount();
         int FilterListCount(string searchParam);
         int DuplicateCreate(T item);
-        int Update(long id, T item);
+        int Update(T item);
         int DuplicateUpdate(T item);
         int Delete(long id);
     }

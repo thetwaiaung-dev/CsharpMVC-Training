@@ -15,6 +15,7 @@ function dataTable() {
             'datatype': "json",
         },
         columns: [
+            
             {
                 data: 'blog_Title',
                 name: 'blog_Title'
@@ -37,12 +38,16 @@ function dataTable() {
             },
             {
                 data: 'blog_Id',
-                className: "text-center",
+                className: "text-center",               
                 render: function (data) {
-                    return '<a href="' + data + '">' +
-                        '<i class="fa-solid fa-trash-can"></i></a>';
+                    return `<a href="#" class="delete-btn" onclick="deleteBlog(${data})">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </a>`;
                 }
             },],
+        initComplete: function (settings, json) {
+            console.log('Received JSON data:', json);
+        },
         columnDefs: [
             {
                 targets: [3],
@@ -50,5 +55,6 @@ function dataTable() {
                 orderable: false
             }],
         lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+        
     });
 }

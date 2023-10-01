@@ -34,5 +34,6 @@ namespace MvcTraining.Controllers
                     data
                 });
         }
+
     }
 }

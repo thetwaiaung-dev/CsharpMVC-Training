@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MvcTraining.Repositories.Blog;
 using MvcTraining.Models;
+using MvcTraining.Repositories.Recipe;
 
 namespace MvcTraining
 {
@@ -30,6 +31,12 @@ namespace MvcTraining
 
             services.AddScoped<BlogService>();
             services.AddScoped<BlogDao>();
+
+            services.AddScoped<IngredientDao>();
+            services.AddScoped<IngredientService>();
+
+            services.AddScoped<RecipeDao>();
+            services.AddScoped<RecipeService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

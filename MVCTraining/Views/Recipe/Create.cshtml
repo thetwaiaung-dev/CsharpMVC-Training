@@ -1,0 +1,177 @@
+﻿
+@{
+    ViewData["Title"] = "Create Recipe";
+}
+@model MvcTraining.Models.RecipeModel;
+
+<!--add ingredients modal box-->
+<div class="modal fade" id="add-ingredient-modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Ingredient</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-3">
+                    <label class="col">Name</label>
+                    <input type="text" id="ingredient-name" class="form-control " style="width:300px" />
+                </div>
+                <div class="row mb-3">
+                    <label class="col">Quantity</label>
+                    <input type="text" id="ingredient-quantity" class="form-control" style="width:300px"/>
+                </div>
+                <div class="row mb-3">
+                    <label class="col">Unit</label>
+                    <input type="text" id="ingredient-unit" class="form-control" style="width:300px"/>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                 <button type="submit" class="btn btn-danger" id="ingre-btn">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-7">
+        <div class="container">
+            <h2 class="container-fluid text-center mb-5">Add Blog</h2>
+            <form asp-controller="Recipe" asp-action="Save" method="post" enctype="multipart/form-data" class="container-fluid form">
+                <div class="mb-3 row">
+                    <label asp-for="Title" class="col-sm-3 col-form-label">Title</label>
+                    <div class="col-sm-9">
+                        <input asp-for="Title" type="text" class="form-control" >
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label asp-for="Author" class="col-sm-3 col-form-label">Author</label>
+                    <div class="col-sm-9">
+                        <input asp-for="Author" class="form-control">
+                        <span asp-validation-for="Author" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label asp-for="PreparationTime" class="col-sm-3 col-form-label">Preparation Time</label>
+                    <div class="col-sm-9">
+                        <input asp-for="PreparationTime" class="form-control">
+                        <span asp-validation-for="PreparationTime" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label asp-for="CookingTime" class="col-sm-3 col-form-label">Cooking Time</label>
+                    <div class="col-sm-9">
+                        <input asp-for="CookingTime" class="form-control">
+                        <span asp-validation-for="CookingTime" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label asp-for="Category" class="col-sm-3 col-form-label">Category</label>
+                    <div class="col-sm-9">
+                        <input asp-for="Category" class="form-control">
+                        <span asp-validation-for="Category" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label asp-for="PhotoUrl" class="col-sm-3 col-form-label">Choose Photo</label>
+                    <div class="col-sm-9">
+                        <input asp-for="PhotoUrl" class="form-control">
+                        <span asp-validation-for="PhotoUrl" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label class="col-sm-3 col-form-label"></label>
+                    <div class="col-sm-9 accordion-item">
+                        <div class="accordion-header">
+                            <button class="ms-0 col form-control d-flex justify-content-between align-items-center btn-text-edit" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-description">
+                                <span>Description</span>
+                                <i class="fa-solid fa-caret-down"></i>
+                            </button>
+                        </div>
+                        <div id="collapse-description" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+                                <textarea asp-for="Description" class="form-control" name="textArea" >
+                                </textarea>
+                            </div>
+                        </div>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label class="col-sm-3 col-form-label"></label>
+                    <div class="col-sm-9 accordion-item">
+                        <div class="accordion-header">
+                            <button class="ms-0 col form-control d-flex justify-content-between align-items-center btn-text-edit" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-instruction">
+                                <span>Instruction</span>
+                                <i class="fa-solid fa-caret-down"></i>
+                            </button>
+                        </div>
+                        <div id="collapse-instruction" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+                                <textarea asp-for="Instruction" class="form-control" name="textArea">
+                                </textarea>
+                            </div>
+                        </div>
+                        <span asp-validation-for="Instruction" class="text-danger"></span>
+                    </div>
+                </div>
+                
+                <div class="mb-5 row">
+                    <label class="col-sm-3"></label>
+                    <div class="col-sm-9">
+                        <button class="col-3 btn btn-primary">Add</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="container-fluid">
+
+            <form class="mb-5 mt-5" method="post" id="contactForm" name="contactForm">
+                <div class=" justify-content-between">
+
+                    <div class="d-flex align-items-center mb-2">
+                        <div class="col fw-bold">Ingredients</div>
+                        <button class="col-3 btn btn-primary" type="button"
+                                data-bs-toggle="modal"
+                                data-bs-target="#add-ingredient-modal">
+                            Add
+                        </button>
+                    </div>
+                    <div class="job-position-table">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Unit</th>
+                                    <th scope="col" class="text-end">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ingredient-body">
+                                <tr >
+                                    <td></td>
+                                    <td ></td>
+                                    <td></td>
+                                    <td class="text-end">
+                                        <i class="fa-solid fa-trash ms-3 "></i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/pages/Recipe/createRecipe.js" asp-append-version="true"></script>
+}

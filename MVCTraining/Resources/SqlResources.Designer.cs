@@ -70,11 +70,39 @@ namespace MvcTraining.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT COUNT(Tbl_Blog.Blog_Id) FROM Tbl_Blog WHERE Blog_Title=@BlogTitle;.
+        ///   Looks up a localized string similar to UPDATE Tbl_Blog SET
+        ///  Is_Deleted=@IsDeleted WHERE Blog_Id=@BlogId;.
+        /// </summary>
+        internal static string DeleteBlogBySort {
+            get {
+                return ResourceManager.GetString("DeleteBlogBySort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to delete Tbl_Recipe where id=@id;.
+        /// </summary>
+        internal static string DeleteRecipe {
+            get {
+                return ResourceManager.GetString("DeleteRecipe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT COUNT(Tbl_Blog.Blog_Id) FROM Tbl_Blog WHERE Blog_Title=@BlogTitle AND Blog_Author=@BlogAuthor And Is_Deleted=@IsDeleted;.
         /// </summary>
         internal static string DuplicateName {
             get {
                 return ResourceManager.GetString("DuplicateName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT COUNT(Tbl_Blog.Blog_Id) FROM Tbl_Blog WHERE Blog_Title=@BlogTitle AND Blog_Author=@BlogAuthor And Blog_Id!=@BlogId And Is_Deleted=@IsDeleted;.
+        /// </summary>
+        internal static string DuplicateUpdate {
+            get {
+                return ResourceManager.GetString("DuplicateUpdate", resourceCulture);
             }
         }
         
@@ -84,6 +112,15 @@ namespace MvcTraining.Resources {
         internal static string GetAllBlog {
             get {
                 return ResourceManager.GetString("GetAllBlog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to select title,descript,instruction,author,prepare_time,cooking_time,dish_image,category,created_date from Tbl_Recipe where is_deleted=0.
+        /// </summary>
+        internal static string GetAllRecipe {
+            get {
+                return ResourceManager.GetString("GetAllRecipe", resourceCulture);
             }
         }
         
@@ -101,6 +138,15 @@ namespace MvcTraining.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to select count(id)  from Tbl_Recipe where is_deleted=0.
+        /// </summary>
+        internal static string RecipeCount {
+            get {
+                return ResourceManager.GetString("RecipeCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to INSERT INTO Tbl_Blog (
         ///  Blog_Title,Blog_Author,Blog_Content,Is_Deleted)
         ///  VALUES (@BlogTitle,@BlogAuthor,@BlogContent,@IsDeleted);.
@@ -112,9 +158,33 @@ namespace MvcTraining.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to UPDATE Tbl_Blog Set 
-        ///Blog_Title=@BlogTitle,Blog_Author=@BlogAuthor,Blog_Content=@BlogContent,Is_Deleted=@IsDeleted
-        ///  WHERE Blog_Id=@Id;.
+        ///   Looks up a localized string similar to insert into Tbl_Ingredient(
+        ///	name
+        ///	,quantity
+        ///	,unit,recipe_id
+        ///) values (@name,@quantity,@unit,@recipeId).
+        /// </summary>
+        internal static string SaveIngredient {
+            get {
+                return ResourceManager.GetString("SaveIngredient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to insert into Tbl_Recipe(	title,descript,instruction,prepare_time,cooking_time,author,created_date,modified_date,category,dish_image
+        ///) output inserted.id values(@title,@descript,@instruction,@prepareTime,@cookingTime,@author,@createdDate,@modifiedDate,@category,@image).
+        /// </summary>
+        internal static string SaveRecipe {
+            get {
+                return ResourceManager.GetString("SaveRecipe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UPDATE Tbl_Blog SET 
+        ///  Blog_Title=@BlogTitle
+        ///  ,Blog_Author=@BlogAuthor
+        ///  ,Blog_Content=@BlogContent WHERE Blog_Id=@BlogId;.
         /// </summary>
         internal static string UpdateBlog {
             get {
