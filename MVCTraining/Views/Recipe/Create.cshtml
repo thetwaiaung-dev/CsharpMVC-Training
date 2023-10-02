@@ -38,7 +38,7 @@
     <div class="col-md-7">
         <div class="container">
             <h2 class="container-fluid text-center mb-5">Add Blog</h2>
-            <form asp-controller="Recipe" asp-action="Save" method="post" enctype="multipart/form-data" class="container-fluid form">
+            <form asp-controller="Recipe" asp-action="Save" method="post" enctype="multipart/form-data" class="container-fluid" id="recipe-form">
                 <div class="mb-3 row">
                     <label asp-for="Title" class="col-sm-3 col-form-label">Title</label>
                     <div class="col-sm-9">
@@ -121,7 +121,7 @@
                 <div class="mb-5 row">
                     <label class="col-sm-3"></label>
                     <div class="col-sm-9">
-                        <button class="col-3 btn btn-primary">Add</button>
+                        <button id="recipe-add-btn" class="col-3 btn btn-primary">Add</button>
                     </div>
                 </div>
 
@@ -131,7 +131,7 @@
     <div class="col-md-5">
         <div class="container-fluid">
 
-            <form class="mb-5 mt-5" method="post" id="contactForm" name="contactForm">
+            <form class="mb-5 mt-5" >
                 <div class=" justify-content-between">
 
                     <div class="d-flex align-items-center mb-2">
@@ -153,14 +153,7 @@
                                 </tr>
                             </thead>
                             <tbody id="ingredient-body">
-                                <tr >
-                                    <td></td>
-                                    <td ></td>
-                                    <td></td>
-                                    <td class="text-end">
-                                        <i class="fa-solid fa-trash ms-3 "></i>
-                                    </td>
-                                </tr>
+                               
                             </tbody>
                         </table>
                     </div>
@@ -173,5 +166,11 @@
 </div>
 
 @section Scripts{
+    <script type="text/javascript">
+        const ingredientName = @Html.Raw(ViewData["IngredientName"]);
+        const ingredientQuantity = @Html.Raw(ViewData["IngredientQuantity"]);
+        const ingredientUnit = @Html.Raw(ViewData["IngredientUnit"]);
+    </script>
     <script src="~/js/pages/Recipe/createRecipe.js" asp-append-version="true"></script>
+    
 }

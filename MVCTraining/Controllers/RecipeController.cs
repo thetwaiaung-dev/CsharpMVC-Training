@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using MvcTraining.Models;
 using MvcTraining.Repositories.Recipe;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace MvcTraining.Controllers
@@ -30,7 +32,8 @@ namespace MvcTraining.Controllers
         }
 
         [HttpPost]
-        public IActionResult Save(RecipeModel recipe)
+        public IActionResult Save(RecipeModel recipe,List<string> ingredientName,List<string> ingredientQuantity,
+                                    List<string> ingredientUnit)
         {
             if (ModelState.IsValid)
             {
@@ -47,6 +50,9 @@ namespace MvcTraining.Controllers
                 TempData["SuccessMessage"] = "Saved successful";
                 return RedirectToAction("Index","Blog");
             }
+            ViewData["IngredientName"] = JsonConvert.SerializeObject(ingredientName);
+            ViewData["IngredientQuantity"] = JsonConvert.SerializeObject(ingredientQuantity);
+            ViewData["IngredientUnit"] = JsonConvert.SerializeObject(ingredientUnit);
             return View("Create",recipe);
         }
 
