@@ -80,6 +80,15 @@ namespace MvcTraining.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to delete Tbl_Ingredient where recipe_id=@recipeId.
+        /// </summary>
+        internal static string DeleteIngredient {
+            get {
+                return ResourceManager.GetString("DeleteIngredient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to delete Tbl_Recipe where id=@id;.
         /// </summary>
         internal static string DeleteRecipe {

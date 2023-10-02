@@ -1,7 +1,12 @@
 ﻿@{
     ViewData["Title"] = "All Recipe";
 }
-
+@if (ViewData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success" id="successMessage">
+        @ViewData["SuccessMessage"]
+    </div>
+}
 <a asp-controller="Recipe" asp-action="Create"><button type="submit" class="mb-3 btn btn-outline-primary add-btn">Add New Recipe</button></a>
 <table class="table" id="recipe_table">
     <thead>
@@ -22,4 +27,5 @@
 
 @section Scripts{
     <script src="~/js/pages/Recipe/recipe.js" asp-append-version="true"></script>
+    <script src="~/js/pages/Blog/blogAlertBox.js" asp-append-version="true"></script>
 }

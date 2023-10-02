@@ -37,6 +37,11 @@ namespace MvcTraining.Repositories.Recipe
                 var con = new SqlConnection(_connection.DbConnection);
                 con.Open() ;
                 var cmd= con.CreateCommand();
+                //if have,to delete previous ingredients that inserted 
+                cmd.CommandText = SqlResources.DeleteIngredient;
+                cmd.Parameters.AddWithValue("@recipeId", recipeId);
+                cmd.ExecuteNonQuery();
+                //if error have, delete recipe
                 cmd.CommandText = SqlResources.DeleteRecipe;
                 cmd.Parameters.AddWithValue("@id", recipeId);
                 cmd.ExecuteNonQuery();

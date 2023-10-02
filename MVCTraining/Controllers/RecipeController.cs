@@ -12,17 +12,21 @@ namespace MvcTraining.Controllers
     public class RecipeController : BaseController
     {
         private readonly RecipeService _recipeService;
+        private readonly IngredientService _ingredientService;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public RecipeController(RecipeService recipeService,
+        public RecipeController(RecipeService recipeService,IngredientService ingredientService,
                                 IWebHostEnvironment webHostEnvironment)
         {
             _recipeService = recipeService;
+            _ingredientService = ingredientService;
             _webHostEnvironment = webHostEnvironment;
         }
 
         public IActionResult GetAllView()
         {
+            string successMessage = TempData["SuccessMessage"] as string;
+            ViewData["SuccessMessage"] = successMessage;
             return View();
         }
         public IActionResult Create()
@@ -44,11 +48,21 @@ namespace MvcTraining.Controllers
                 recipe.DishPhoto = "/" + folder; 
 
                 RecipeDto recipeDto = ChangeModel.Change(recipe);
-                long saveResult=_recipeService.SaveRecipe(recipeDto);
-
+                long saveRecipe = _recipeService.SaveRecipe(recipeDto);
+                if(ingredientName != null && saveRecipe>0)
+                {
+                    for(var i = 0; i < ingredientName.Count; i++)
+                    {
+                        IngredientDto ingreDto=new IngredientDto();
+                        ingreDto.Name = ingredientName[i];
+                        ingreDto.Quantity =Convert.ToInt16(ingredientQuantity[i]);
+                        ingreDto.Unit = ingredientUnit[i];
+                        int ingreSaveResult = _ingredientService.SaveIngredient(ingreDto, saveRecipe);
+                    }
+                }
                 recipe.PhotoUrl.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
                 TempData["SuccessMessage"] = "Saved successful";
-                return RedirectToAction("Index","Blog");
+                return RedirectToAction("GetAllView", "Recipe");
             }
             ViewData["IngredientName"] = JsonConvert.SerializeObject(ingredientName);
             ViewData["IngredientQuantity"] = JsonConvert.SerializeObject(ingredientQuantity);

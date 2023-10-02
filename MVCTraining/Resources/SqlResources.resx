@@ -171,4 +171,7 @@
   <data name="RecipeCount" xml:space="preserve">
     <value>select count(id)  from Tbl_Recipe where is_deleted=0</value>
   </data>
+  <data name="DeleteIngredient" xml:space="preserve">
+    <value>delete Tbl_Ingredient where recipe_id=@recipeId</value>
+  </data>
 </root>
