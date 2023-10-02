@@ -1,6 +1,12 @@
 ﻿var addIngredientModal = new bootstrap.Modal(document.getElementById('add-ingredient-modal'));
 var ingredientBody = document.getElementById('ingredient-body');
 var ingredientText = document.getElementById('ingredientText');
+var ingredientNameError = document.getElementById('ingredientNameError');
+var ingredientQuantityError = document.getElementById('ingredientQuantityError');
+var ingredientUnitError = document.getElementById('ingredientUnitError');
+var inputIngredientName = document.getElementById('ingredient-name');
+var inputIngredientQuantity = document.getElementById('ingredient-quantity');
+var inputIngredientUnit = document.getElementById('ingredient-unit');
 
 //retreive ingredient data list from controller when have error
 if (window.ingredientName != null) {
@@ -8,9 +14,41 @@ if (window.ingredientName != null) {
         createTable(window.ingredientName[i], window.ingredientQuantity[i], window.ingredientUnit[i]);
     }
 }
-document.getElementById('ingre-btn').addEventListener('click', function () {
+
+//to add table row when click button
+function addIngre() {
+    if (!validateIngreName() || !validateIngreQuantity() || !validateIngreUnit() ) {
+        return false;
+    }
     createTable($('#ingredient-name').val(), $('#ingredient-quantity').val(), $('#ingredient-unit').val());
-})
+}
+
+//validate ingredient name
+function validateIngreName() {
+    if (inputIngredientName.value == null || inputIngredientName.value.trim() == "") {
+        error(ingredientNameError, 'Name is required.')
+        return false;
+    }
+    return true;
+}
+
+//validate ingredient quantity
+function validateIngreQuantity() {
+    if (inputIngredientQuantity.value == null || inputIngredientQuantity.value.trim() == "") {
+        error(ingredientQuantityError, 'Quantity is required.')
+        return false;
+    }
+    return true;
+}
+
+//validate ingredient unit
+function validateIngreUnit() {
+    if (inputIngredientUnit.value == null || inputIngredientUnit.value.trim() == '') {
+        error(ingredientUnitError, 'Unit is required.')
+        return false;
+    }
+    return true;
+}
 
 //table data create method
 function createTable(nameData,quantityData,unitData) {
@@ -31,6 +69,9 @@ function createTable(nameData,quantityData,unitData) {
 
     const icon = document.createElement('i');
     icon.className = 'fa-solid fa-trash ms-3 ';
+    icon.addEventListener('click', function () {
+        removeIngre(this); 
+    });
     actionTd.appendChild(icon);
 
     /*    tr.appendChild(noTd);*/
@@ -74,3 +115,21 @@ document.getElementById('recipe-add-btn').addEventListener('click', function (e)
 
     recipeForm.submit();
 })
+
+
+
+//error show method
+function error(element, message) {
+    element.innerHTML = message;
+    setTimeout(() => {
+        element.innerHTML = '';
+    }, 2000);
+}
+
+//to remove table row 
+function removeIngre(element) {
+    var row = element.closest('tr');
+    if (row) {
+        row.remove();
+    }
+}
