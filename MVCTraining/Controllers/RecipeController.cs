@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 
 namespace MvcTraining.Controllers
 {
@@ -76,6 +77,16 @@ namespace MvcTraining.Controllers
             var requestData = GetFormRequest();
             var recipeList=_recipeService.GetAll(requestData);
             return ToJson(requestData.Draw,recipeList.RequestTotal,recipeList.RequestFilter,recipeList.recipes);
+        }
+
+        [Route("Recipe/detail")]
+        public IActionResult Detail(long id)
+        {
+            RecipeDto recipeDto = _recipeService.GetById(id);
+            RecipeModel model = ChangeModel.Change(recipeDto);
+            List<IngredientDto> dtoList=_ingredientService.GetIngredientByRecipeId(id);
+            ViewData["RecipeModel"] = model;
+            return View(dtoList);
         }
     }
 }

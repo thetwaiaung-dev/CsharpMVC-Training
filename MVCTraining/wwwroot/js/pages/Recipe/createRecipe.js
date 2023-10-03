@@ -1,4 +1,5 @@
 ﻿var addIngredientModal = new bootstrap.Modal(document.getElementById('add-ingredient-modal'));
+var updateIngredientModal =new bootstrap.Modal(document.getElementById('update-ingredient-modal'));
 var ingredientBody = document.getElementById('ingredient-body');
 var ingredientText = document.getElementById('ingredientText');
 var ingredientNameError = document.getElementById('ingredientNameError');
@@ -21,6 +22,7 @@ function addIngre() {
         return false;
     }
     createTable($('#ingredient-name').val(), $('#ingredient-quantity').val(), $('#ingredient-unit').val());
+    addIngredientModal.hide();
 }
 
 //validate ingredient name
@@ -65,14 +67,35 @@ function createTable(nameData,quantityData,unitData) {
     quantityTd.className = 'quantity-td';
     unitTd.innerText = unitData;
     unitTd.className = 'unit-td';
-    actionTd.className = 'text-end';
+    
 
-    const icon = document.createElement('i');
-    icon.className = 'fa-solid fa-trash ms-3 ';
-    icon.addEventListener('click', function () {
+    const iconDelete = document.createElement('i');
+    iconDelete.className = 'fa-solid fa-trash-can';
+    iconDelete.addEventListener('click', function () {
         removeIngre(this); 
     });
-    actionTd.appendChild(icon);
+    const iconUpdate = document.createElement('i');
+    iconUpdate.className = 'fa-solid fa-pen-to-square';
+    iconUpdate.addEventListener('click', function () {
+        updateIngre(this);
+    })
+
+    //to create div class row for action
+    const rowDiv = document.createElement('div');
+    rowDiv.className = 'row';
+
+    const colDiv1 = document.createElement('div');
+    colDiv1.className = 'col';
+    colDiv1.appendChild(iconUpdate);
+
+    const colDiv2 = document.createElement('div');
+    colDiv2.className = 'col';
+    colDiv2.appendChild(iconDelete);
+
+    rowDiv.appendChild(colDiv1);
+    rowDiv.appendChild(colDiv2);
+
+    actionTd.appendChild(rowDiv);
 
     /*    tr.appendChild(noTd);*/
     tr.appendChild(nameTd);
@@ -133,3 +156,16 @@ function removeIngre(element) {
         row.remove();
     }
 }
+
+function updateIngre(element) {
+    var tableRow = element.closest('tr');
+    var name = tableRow.querySelector('td:nth-child(1)').innerHTML;
+    var quantity = tableRow.querySelector('td:nth-child(2)').innerHTML;
+    var unit = tableRow.querySelector('td:nth-child(3)').innerHTML;
+
+    document.getElementById('update-ingredient-name').value = name;
+    document.getElementById('update-ingredient-quantity').value = quantity;
+    document.getElementById('update-ingredient-unit').value = unit;
+    updateIngredientModal.show();
+}
+        

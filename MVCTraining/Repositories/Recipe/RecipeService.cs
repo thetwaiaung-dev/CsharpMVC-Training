@@ -55,5 +55,11 @@ namespace MvcTraining.Repositories.Recipe
 
             return recipeFilter;
         }
+
+        public RecipeDto GetById(long id)
+        {
+            RecipeDto dto=_recipeDao.GetById(id);
+            return dto;
+        }
     }
 }

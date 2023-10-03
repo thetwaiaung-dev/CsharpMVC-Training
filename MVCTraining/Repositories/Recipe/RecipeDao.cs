@@ -125,6 +125,7 @@ namespace MvcTraining.Repositories.Recipe
                         while (rdr.Read())
                         {
                             RecipeDto dto = new RecipeDto();
+                            dto.Id = Convert.ToInt64(rdr["id"]);
                             dto.Title = rdr["title"].ToString();
                             dto.Description = rdr["descript"].ToString();
                             dto.Instruction = rdr["instruction"].ToString();
@@ -148,10 +149,39 @@ namespace MvcTraining.Repositories.Recipe
 
         public RecipeDto GetById(long id)
         {
-            throw new System.NotImplementedException();
+            RecipeDto dto = new RecipeDto();
+            try
+            {
+                using(var con=new SqlConnection(_connection.DbConnection))
+                {
+                    con.Open();
+                    var cmd = con.CreateCommand();
+                    cmd.CommandText = SqlResources.GetRecipeById;
+                    cmd.Parameters.AddWithValue("id", id);
+                    using(SqlDataReader rdr=cmd.ExecuteReader())
+                    {
+                       while(rdr.Read())
+                        {
+                            dto.Id = Convert.ToInt64(rdr["id"]);
+                            dto.Title = rdr["title"].ToString();
+                            dto.Description = rdr["descript"].ToString();
+                            dto.Instruction = rdr["instruction"].ToString();
+                            dto.PreparationTime = rdr["prepare_time"].ToString();
+                            dto.CookingTime = rdr["cooking_time"].ToString();
+                            dto.Author = rdr["author"].ToString();
+                            dto.Category = rdr["category"].ToString();
+                            dto.DishPhoto = rdr["dish_image"].ToString();
+                            dto.CreatedDate = Convert.ToDateTime(rdr["created_date"]);
+                        }
+                    }
+                    con.Close();
+                }
+            }catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            return dto;
         }
-
-
 
         public int Update(RecipeDto item)
         {

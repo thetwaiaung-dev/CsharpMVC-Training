@@ -1,8 +1,8 @@
-﻿
+﻿@model IEnumerable<MvcTraining.Repositories.Recipe.IngredientDto>
 @{
-    ViewData["Title"] = "Create Recipe";
+    ViewData["Title"] = "Detail";
+    var recipe = ViewData["RecipeModel"] as MvcTraining.Models.RecipeModel;
 }
-@model MvcTraining.Models.RecipeModel;
 
 <!--add ingredients modal box-->
 @Html.Partial("AddIngredientModal")
@@ -10,48 +10,48 @@
 <div class="row">
     <div class="col-md-7">
         <div class="container">
-            <h2 class="container-fluid text-center mb-5">Add Blog</h2>
+            <h2 class="container-fluid text-center mb-5">Update Blog</h2>
             <form asp-controller="Recipe" asp-action="Save" method="post" enctype="multipart/form-data" class="container-fluid" id="recipe-form">
                 <div class="mb-3 row">
-                    <label asp-for="Title" class="col-sm-3 col-form-label">Title</label>
+                    <label  class="col-sm-3 col-form-label">Title</label>
                     <div class="col-sm-9">
-                        <input asp-for="Title" type="text" class="form-control" >
-                        <span asp-validation-for="Title" class="text-danger"></span>
+                        <input asp-for="@recipe.Title" type="text" class="form-control">
+                        <span asp-validation-for="@recipe.Title" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="mb-3 row">
-                    <label asp-for="Author" class="col-sm-3 col-form-label">Author</label>
+                    <label asp-for="@recipe.Author" class="col-sm-3 col-form-label">Author</label>
                     <div class="col-sm-9">
-                        <input asp-for="Author" class="form-control">
-                        <span asp-validation-for="Author" class="text-danger"></span>
+                        <input asp-for="@recipe.Author" class="form-control">
+                        <span asp-validation-for="@recipe.Author" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="mb-3 row">
-                    <label asp-for="PreparationTime" class="col-sm-3 col-form-label">Preparation Time</label>
+                    <label asp-for="@recipe.PreparationTime" class="col-sm-3 col-form-label">Preparation Time</label>
                     <div class="col-sm-9">
-                        <input asp-for="PreparationTime" class="form-control">
-                        <span asp-validation-for="PreparationTime" class="text-danger"></span>
+                        <input asp-for="@recipe.PreparationTime" class="form-control">
+                        <span asp-validation-for="@recipe.PreparationTime" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="mb-3 row">
-                    <label asp-for="CookingTime" class="col-sm-3 col-form-label">Cooking Time</label>
+                    <label asp-for="@recipe.CookingTime" class="col-sm-3 col-form-label">Cooking Time</label>
                     <div class="col-sm-9">
-                        <input asp-for="CookingTime" class="form-control">
-                        <span asp-validation-for="CookingTime" class="text-danger"></span>
+                        <input asp-for="@recipe.CookingTime" class="form-control">
+                        <span asp-validation-for="@recipe.CookingTime" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="mb-3 row">
-                    <label asp-for="Category" class="col-sm-3 col-form-label">Category</label>
+                    <label asp-for="@recipe.Category" class="col-sm-3 col-form-label">Category</label>
                     <div class="col-sm-9">
-                        <input asp-for="Category" class="form-control">
-                        <span asp-validation-for="Category" class="text-danger"></span>
+                        <input asp-for="@recipe.Category" class="form-control">
+                        <span asp-validation-for="@recipe.Category" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="mb-3 row">
-                    <label asp-for="PhotoUrl" class="col-sm-3 col-form-label">Choose Photo</label>
+                    <label asp-for="@recipe.PhotoUrl" class="col-sm-3 col-form-label">Choose Photo</label>
                     <div class="col-sm-9">
-                        <input asp-for="PhotoUrl" class="form-control">
-                        <span asp-validation-for="PhotoUrl" class="text-danger"></span>
+                        <input asp-for="@recipe.PhotoUrl" class="form-control">
+                        <span asp-validation-for="@recipe.PhotoUrl" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="mb-3 row">
@@ -65,11 +65,11 @@
                         </div>
                         <div id="collapse-description" class="accordion-collapse collapse">
                             <div class="accordion-body">
-                                <textarea asp-for="Description" class="form-control" >
+                                <textarea asp-for="@recipe.Description" class="form-control">
                                 </textarea>
                             </div>
                         </div>
-                        <span asp-validation-for="Description" class="text-danger"></span>
+                        <span asp-validation-for="@recipe.Description" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="mb-3 row">
@@ -83,18 +83,18 @@
                         </div>
                         <div id="collapse-instruction" class="accordion-collapse collapse">
                             <div class="accordion-body">
-                                <textarea asp-for="Instruction" class="form-control">
+                                <textarea asp-for="@recipe.Instruction" class="form-control">
                                 </textarea>
                             </div>
                         </div>
-                        <span asp-validation-for="Instruction" class="text-danger"></span>
+                        <span asp-validation-for="@recipe.Instruction" class="text-danger"></span>
                     </div>
                 </div>
-                
+
                 <div class="mb-5 row">
                     <label class="col-sm-3"></label>
                     <div class="col-sm-9">
-                        <button id="recipe-add-btn" class="col-3 btn btn-primary">Add</button>
+                        <button id="recipe-add-btn" class="col-3 btn btn-primary">Update</button>
                     </div>
                 </div>
 
@@ -104,11 +104,11 @@
     <div class="col-md-5">
         <div class="container-fluid">
 
-            <form class="mb-5 mt-5" >
+            <form class="mb-5 mt-5">
                 <div class=" justify-content-between">
 
                     <div class="d-flex align-items-center mb-2">
-                        <div class="col fw-bold">Ingredients</div>
+                        <h2 class="col">Ingredients</h2>
                         <button class="col-3 btn btn-primary" type="button"
                                 data-bs-toggle="modal"
                                 data-bs-target="#add-ingredient-modal">
@@ -126,7 +126,34 @@
                                 </tr>
                             </thead>
                             <tbody id="ingredient-body">
-                               
+                                @foreach(var ingred in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem=>ingred.Name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem=>ingred.Quantity)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem=>ingred.Unit)
+                                        </td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <a asp-controller="Recipe" asp-action="Edit">
+                                                        <i class="fa-solid fa-pen-to-square"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="col">
+                                                    <a asp-controller="Recipe" asp-action="Delete">
+                                                        <i class="fa-solid fa-trash-can"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
                             </tbody>
                         </table>
                     </div>
@@ -144,5 +171,5 @@
         var ingredientQuantity = @Html.Raw(ViewData["IngredientQuantity"]);
         var ingredientUnit = @Html.Raw(ViewData["IngredientUnit"]);
     </script>
-    <script src="~/js/pages/Recipe/createRecipe.js" asp-append-version="true"></script>   
+    <script src="~/js/pages/Recipe/createRecipe.js" asp-append-version="true"></script>
 }

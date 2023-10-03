@@ -56,6 +56,39 @@ namespace MvcTraining.Repositories.Recipe
             throw new NotImplementedException();
         }
 
+        public List<IngredientDto> GetIngredientByRecipeId(long recipeId)
+        {
+            List<IngredientDto> dtoList=new List<IngredientDto>();
+            try
+            {
+                using(var con=new SqlConnection(_connection.DbConnection))
+                {
+                    con.Open() ;
+                    var cmd=con.CreateCommand();
+                    cmd.CommandText = SqlResources.GetIngredientsByRecipeId;
+                    cmd.Parameters.AddWithValue("@recipeId", recipeId);
+                    using(SqlDataReader rd=cmd.ExecuteReader())
+                    {
+                        while (rd.Read())
+                        {
+                            IngredientDto dto=new IngredientDto();
+                            dto.Id = Convert.ToInt64(rd["id"]);
+                            dto.Name = rd["name"].ToString();
+                            dto.Quantity = Convert.ToInt16(rd["quantity"]);
+                            dto.Unit = rd["unit"].ToString();
+                            dtoList.Add(dto);
+                        }
+                    }
+
+                    con.Close();
+                }
+            }catch( Exception ex )
+            {
+                throw new Exception(ex.Message);
+            }
+            return dtoList;
+        }
+
         public int Delete(long id)
         {
             throw new System.NotImplementedException();

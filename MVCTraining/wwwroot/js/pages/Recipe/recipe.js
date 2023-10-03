@@ -58,11 +58,11 @@
                 className: 'align-middle'
             },
             {
-                data: 'title',
+                data: 'id',
                 className: "text-center",
                 render: function (data) {
-                    return `<div class="container"><a class="row mb-5" href="/Blog/UpdateBlogView?id=${data}">
-                            <i class="fa-solid fa-pen-to-square"></i></a>
+                    return `<div class="container"><a class="row mb-5" href="/Recipe/detail?id=${data}">
+                            <i class="fa-solid fa-info"></i></a>
                             <a class="row" href="#" class="delete-btn" onclick="deleteBlog(${data})">
                                 <i class="fa-solid fa-trash-can"></i>
                             </a></div>`;

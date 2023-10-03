@@ -125,7 +125,7 @@ namespace MvcTraining.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to select title,descript,instruction,author,prepare_time,cooking_time,dish_image,category,created_date from Tbl_Recipe where is_deleted=0.
+        ///   Looks up a localized string similar to select id,title,descript,instruction,author,prepare_time,cooking_time,dish_image,category,created_date from Tbl_Recipe where is_deleted=0.
         /// </summary>
         internal static string GetAllRecipe {
             get {
@@ -143,6 +143,24 @@ namespace MvcTraining.Resources {
         internal static string GetBlogById {
             get {
                 return ResourceManager.GetString("GetBlogById", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to select id,name,quantity,unit from Tbl_Ingredient where recipe_id=@recipeId.
+        /// </summary>
+        internal static string GetIngredientsByRecipeId {
+            get {
+                return ResourceManager.GetString("GetIngredientsByRecipeId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to select id,title,descript,instruction,prepare_time,cooking_time,author,created_date,category,dish_image from Tbl_Recipe where id=@id and is_deleted=0.
+        /// </summary>
+        internal static string GetRecipeById {
+            get {
+                return ResourceManager.GetString("GetRecipeById", resourceCulture);
             }
         }
         

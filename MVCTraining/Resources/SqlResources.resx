@@ -166,12 +166,18 @@
     <value>delete Tbl_Recipe where id=@id;</value>
   </data>
   <data name="GetAllRecipe" xml:space="preserve">
-    <value>select title,descript,instruction,author,prepare_time,cooking_time,dish_image,category,created_date from Tbl_Recipe where is_deleted=0</value>
+    <value>select id,title,descript,instruction,author,prepare_time,cooking_time,dish_image,category,created_date from Tbl_Recipe where is_deleted=0</value>
   </data>
   <data name="RecipeCount" xml:space="preserve">
     <value>select count(id)  from Tbl_Recipe where is_deleted=0</value>
   </data>
   <data name="DeleteIngredient" xml:space="preserve">
     <value>delete Tbl_Ingredient where recipe_id=@recipeId</value>
+  </data>
+  <data name="GetIngredientsByRecipeId" xml:space="preserve">
+    <value>select id,name,quantity,unit from Tbl_Ingredient where recipe_id=@recipeId</value>
+  </data>
+  <data name="GetRecipeById" xml:space="preserve">
+    <value>select id,title,descript,instruction,prepare_time,cooking_time,author,created_date,category,dish_image from Tbl_Recipe where id=@id and is_deleted=0</value>
   </data>
 </root>
