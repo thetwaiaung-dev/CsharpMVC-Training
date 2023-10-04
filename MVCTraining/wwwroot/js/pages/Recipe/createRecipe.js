@@ -15,8 +15,11 @@ var updateIngredientName = document.getElementById('update-ingredient-name');
 var updateIngredientQuantity = document.getElementById('update-ingredient-quantity');
 var updateIngredientUnit = document.getElementById('update-ingredient-unit');
 var tableRowIndex = document.getElementById('tableRowIndex');
+var updateIngredientId = document.getElementById('update-ingredient-id');
+var updateIngredientForm = document.getElementById('update-ingredient-form');
+var duplicateNameUpdate = document.getElementById('duplicateNameUpdate');
 
-//retreive ingredient data list from controller when have error
+//retreive ingredient data list from server side when have error
 if (window.ingredientName != null) {
     for (var i = 0; i < window.ingredientName.length; i++) {
         createTable(window.ingredientName[i], window.ingredientQuantity[i], window.ingredientUnit[i]);
@@ -151,7 +154,9 @@ function removeIngre(element) {
 }
 
 //set data when click update icon button
-function updateIngre(element) {
+function updateIngre(element, id) {
+    console.log('Id =.>' + id);
+
     var tableRow = element.closest('tr');
     var name = tableRow.querySelector('td:nth-child(1)').innerHTML;
     var quantity = tableRow.querySelector('td:nth-child(2)').innerHTML;
@@ -161,6 +166,9 @@ function updateIngre(element) {
     updateIngredientQuantity.value = quantity;
     updateIngredientUnit.value = unit;
     tableRowIndex.value = tableRow.rowIndex;
+    if (id != undefined) {
+        updateIngredientId.value = id;
+    } else updateIngredientId.value = 0;
     updateIngredientModal.show();
 }
 
@@ -169,13 +177,30 @@ function updateIngreBtn() {
     if (!validateName(updateIngredientName.value, ingredientNameErrorUpdate) || !validateQuantity(updateIngredientQuantity.value, ingredientQuantityErrorUpdate) || !validateUnit(updateIngredientUnit.value, ingredientUnitErrorUpdate)) {
         return false;
     }
-
     var rowIndex = tableRowIndex.value;
-    document.getElementsByClassName('name-td')[rowIndex - 1].innerText = updateIngredientName.value;
-    document.getElementsByClassName('quantity-td')[rowIndex - 1].innerText = updateIngredientQuantity.value;
-    document.getElementsByClassName('unit-td')[rowIndex - 1].innerText = updateIngredientUnit.value;
+    var rowCount = ingredientBody.getElementsByTagName('tr').length;
+    var duplicateResult = false;
+    for (var i = 0; i < rowCount; i++) {
+        if (document.getElementsByClassName('name-td')[i].innerText == updateIngredientName.value && [rowIndex-1]!=i)
+        {
+            duplicateResult = true;
+        }
+    }
+    if (duplicateResult) {
+        error(duplicateNameUpdate, 'Name has already existed.');
+        return false;
+    }
+    else if (!duplicateResult) {
+        if (updateIngredientId.value > 0) {
+            updateIngredientForm.submit();
+        } else if (updateIngredientId.value == 0) {
+            document.getElementsByClassName('name-td')[rowIndex - 1].innerText = updateIngredientName.value;
+            document.getElementsByClassName('quantity-td')[rowIndex - 1].innerText = updateIngredientQuantity.value;
+            document.getElementsByClassName('unit-td')[rowIndex - 1].innerText = updateIngredientUnit.value;
 
-    updateIngredientModal.hide();
+            updateIngredientModal.hide();
+        }
+    } else { error(duplicateNameUpdate, 'Something was wrong.'); return false; } 
 }
 
 //to show error when key up

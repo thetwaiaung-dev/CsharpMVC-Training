@@ -15,5 +15,7 @@ namespace MvcTraining.Repositories.Recipe
         public short Quantity {  get; set; }
         [Column("unit")]
         public string Unit {  get; set; }
+
+        public long RecipeId {  get; set; }
     }
 }

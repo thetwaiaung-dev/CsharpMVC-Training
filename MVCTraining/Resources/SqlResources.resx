@@ -183,4 +183,13 @@
   <data name="DeleteSortIngredient" xml:space="preserve">
     <value>update Tbl_Ingredient set is_deleted=@IsDeleted where id=@id</value>
   </data>
+  <data name="DuplicateIngredientUpdate" xml:space="preserve">
+    <value>select count(id) from Tbl_Ingredient where name=@name and id!=@id and recipe_id=@recipeId and is_deleted=0</value>
+  </data>
+  <data name="UpdateIngredient" xml:space="preserve">
+    <value>update Tbl_Ingredient set name=@name,quantity=@quantity,unit=@unit where id=@id</value>
+  </data>
+  <data name="GetIngredientById" xml:space="preserve">
+    <value>select name,quantity,unit,recipe_id from Tbl_Ingredient where id=@id</value>
+  </data>
 </root>

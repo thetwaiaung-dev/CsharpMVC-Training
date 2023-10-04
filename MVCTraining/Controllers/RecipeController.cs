@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Threading.Tasks;
 
 namespace MvcTraining.Controllers
 {
@@ -93,17 +94,26 @@ namespace MvcTraining.Controllers
         }
 
         [HttpPost]
-        [Route("Recipe/edit-ingredient",Name ="editIngredient")]
-        public IActionResult EditIngredient(long id)
+        public async Task<IActionResult> UpdateIngredient(string ingredientName,short ingredientQuantity,
+                                                    string ingredientUnit,long ingredientId)
         {
-            return View();
+            IngredientDto ingreDto = new IngredientDto()
+            {
+                Id= ingredientId,Name= ingredientName,Quantity=ingredientQuantity,Unit=ingredientUnit
+            };
+            int updateResult = _ingredientService.Update(ingreDto);
+            IngredientDto getRecipeIdDto=await _ingredientService.GetByIdAsync(ingreDto.Id);
+
+            string message = updateResult > 0 ? "Ingredient is successfully updated." : "Updating is failed.Try again.";
+            TempData["Message"] = message;
+            return RedirectToAction("Detail", new {id=getRecipeIdDto.RecipeId});
         }
 
         [Route("Recipe/delete-ingredient",Name ="deleteIngredient")]
         public IActionResult DeleteIngredient(long id,long recipeId)
         {
             int deleteResult = _ingredientService.Delete(id);
-            string message = deleteResult > 0 ? "Ingredient is successfully deleted." : "Ingredient is failed delted.Try again.";
+            string message = deleteResult > 0 ? "Ingredient is successfully deleted." : "Deleting is failed.Try again.";
             TempData["Message"]=message;
             return RedirectToAction("Detail", new {id=recipeId});
         }

@@ -137,19 +137,13 @@
                                 @foreach(var ingred in Model)
                                 {
                                     <tr>
-                                        <td class="name-td">
-                                            @Html.DisplayFor(modelItem=>ingred.Name)
-                                        </td>
-                                        <td class="quantity-td">
-                                            @Html.DisplayFor(modelItem=>ingred.Quantity)
-                                        </td>
-                                        <td class="unit-td">
-                                            @Html.DisplayFor(modelItem=>ingred.Unit)
-                                        </td>
+                                        <td class="name-td">@Html.DisplayFor(modelItem=>ingred.Name)</td>    
+                                        <td class="quantity-td">@Html.DisplayFor(modelItem=>ingred.Quantity)</td>
+                                        <td class="unit-td">@Html.DisplayFor(modelItem=>ingred.Unit)</td>
                                         <td>
                                             <div class="row">
                                                 <div class="col">
-                                                    <a asp-route="editIngredient" asp-route-id="@ingred.Id">
+                                                    <a onclick="updateIngre(this,@ingred.Id)">
                                                         <i class="fa-solid fa-pen-to-square"></i>
                                                     </a> 
                                                 </div>

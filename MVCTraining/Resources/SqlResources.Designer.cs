@@ -107,6 +107,15 @@ namespace MvcTraining.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to select count(id) from Tbl_Ingredient where name=@name and id!=@id and recipe_id=@recipeId and is_deleted=0.
+        /// </summary>
+        internal static string DuplicateIngredientUpdate {
+            get {
+                return ResourceManager.GetString("DuplicateIngredientUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SELECT COUNT(Tbl_Blog.Blog_Id) FROM Tbl_Blog WHERE Blog_Title=@BlogTitle AND Blog_Author=@BlogAuthor And Is_Deleted=@IsDeleted;.
         /// </summary>
         internal static string DuplicateName {
@@ -152,6 +161,15 @@ namespace MvcTraining.Resources {
         internal static string GetBlogById {
             get {
                 return ResourceManager.GetString("GetBlogById", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to select name,quantity,unit,recipe_id from Tbl_Ingredient where id=@id.
+        /// </summary>
+        internal static string GetIngredientById {
+            get {
+                return ResourceManager.GetString("GetIngredientById", resourceCulture);
             }
         }
         
@@ -225,6 +243,15 @@ namespace MvcTraining.Resources {
         internal static string UpdateBlog {
             get {
                 return ResourceManager.GetString("UpdateBlog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to update Tbl_Ingredient set name=@name,quantity=@quantity,unit=@unit where id=@id.
+        /// </summary>
+        internal static string UpdateIngredient {
+            get {
+                return ResourceManager.GetString("UpdateIngredient", resourceCulture);
             }
         }
     }

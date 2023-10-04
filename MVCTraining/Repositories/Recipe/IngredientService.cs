@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MvcTraining.Repositories.Recipe
 {
@@ -28,6 +29,25 @@ namespace MvcTraining.Repositories.Recipe
         {
             int result=_ingredientDao.Delete(id);
             return result;
+        }
+
+        public int Update(IngredientDto dto)
+        {
+            int result=_ingredientDao.Update(dto);
+            return result;
+        }
+
+        public IngredientDto GetById(long id)
+        {
+            IngredientDto dto=_ingredientDao.GetById(id);
+            return dto;
+        }
+
+        public async Task<IngredientDto> GetByIdAsync(long id)
+        {
+            IngredientDto dto=await _ingredientDao.GetByIdAsync(id);
+
+            return dto;
         }
     }
 }

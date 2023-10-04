@@ -1,4 +1,9 @@
-﻿<div class="modal fade" id="add-ingredient-modal" tabindex="-1">
+﻿
+@{
+    var ingredient = new IngredientModel();
+}
+
+<div class="modal fade" id="add-ingredient-modal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -18,7 +23,7 @@
                     <label class="col">Quantity</label>
                     <div class="col">
                         <input type="text" id="ingredient-quantity" class="form-control" style="width:300px"
-                               onkeyup="validateIngreQuantity()" />
+                              onkeyup="validateIngreQuantity()" />
                         <span class="text-danger" id="ingredientQuantityError"></span>
                     </div>
                 </div>
@@ -26,7 +31,7 @@
                     <label class="col">Unit</label>
                     <div class="col">
                         <input type="text" id="ingredient-unit" class="form-control" style="width:300px"
-                               onkeyup="validateIngreUnit()" />
+                            onkeyup="validateIngreUnit()" />
                         <span class="text-danger" id="ingredientUnitError"></span>
                     </div>
                 </div>
@@ -46,12 +51,14 @@
                 <h5 class="modal-title">Update Ingredient</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <form asp-controller="Recipe" asp-action="UpdateIngredient" method="post" id="update-ingredient-form">
             <div class="modal-body">
+                <p class="text-danger" style="text-align:center" id="duplicateNameUpdate"></p>
                 <div class="row mb-3">
                     <label class="col">Name</label>
                     <div class="col">
                         <input type="text" id="update-ingredient-name" class="form-control " style="width:300px"
-                               onkeyup="validateIngreNameUpdate()" />
+                               name="ingredientName" onkeyup="validateIngreNameUpdate()" />
                         <span id="ingredientNameErrorUpdate" class="text-danger"></span>
                     </div>
                 </div>
@@ -59,7 +66,7 @@
                     <label class="col">Quantity</label>
                     <div class="col">
                         <input type="text" id="update-ingredient-quantity" class="form-control" style="width:300px"
-                               onkeyup="validateIngreQuantityUpdate()" />
+                              name="ingredientQuantity" onkeyup="validateIngreQuantityUpdate()" />
                         <span class="text-danger" id="ingredientQuantityErrorUpdate"></span>
                     </div>
                 </div>
@@ -67,13 +74,16 @@
                     <label class="col">Unit</label>
                     <div class="col">
                         <input type="text" id="update-ingredient-unit" class="form-control" style="width:300px"
-                               onkeyup="validateIngreUnitUpdate()" />
+                              name="ingredientUnit" onkeyup="validateIngreUnitUpdate()" />
                         <span class="text-danger" id="ingredientUnitErrorUpdate"></span>
                     </div>
                 </div>
             </div>
             <!--to send table row index when update-->
             <input type="hidden" id="tableRowIndex"/>
+            <!--to send ingredient id when update-->
+            <input type="hidden" id="update-ingredient-id" name="ingredientId" />
+            </form>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-danger" onclick="return updateIngreBtn()" id="ingre-btn">Update</button>

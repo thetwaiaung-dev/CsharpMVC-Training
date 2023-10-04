@@ -4,6 +4,7 @@ using MvcTraining.Models;
 using MvcTraining.Resources;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MvcTraining.Repositories.Recipe
 {
@@ -134,7 +135,69 @@ namespace MvcTraining.Repositories.Recipe
 
         public IngredientDto GetById(long id)
         {
-            throw new System.NotImplementedException();
+            IngredientDto dto = new IngredientDto();
+            try
+            {
+                using(var con=new SqlConnection(_connection.DbConnection))
+                {
+                    con.Open();
+                    var cmd=con.CreateCommand();
+                    cmd.CommandText = SqlResources.GetIngredientById;
+                    cmd.Parameters.AddWithValue("id", id);
+                    using(SqlDataReader rd=cmd.ExecuteReader())
+                    {
+                        while (rd.Read())
+                        {
+                            dto.Id = id;
+                            dto.Name = rd["name"].ToString();
+                            dto.Quantity = Convert.ToInt16(rd["quantity"]);
+                            dto.Unit = rd["unit"].ToString();
+                            dto.RecipeId = Convert.ToInt64(rd["recipe_id"]);
+                        }
+                    }
+
+                    con.Close();
+                }
+            }catch(Exception ex)
+            {
+                throw new Exception (ex.Message);   
+            }
+            return dto;
+        }
+
+        public async Task<IngredientDto> GetByIdAsync(long id)
+        {
+            IngredientDto dto = new IngredientDto();
+
+            try
+            {
+                using (var con = new SqlConnection(_connection.DbConnection))
+                {
+                    await con.OpenAsync(); // Use asynchronous open operation
+
+                    var cmd = con.CreateCommand();
+                    cmd.CommandText = SqlResources.GetIngredientById;
+                    cmd.Parameters.AddWithValue("id", id);
+
+                    using (SqlDataReader rd = await cmd.ExecuteReaderAsync()) // Use asynchronous ExecuteReader operation
+                    {
+                        while (await rd.ReadAsync()) // Use asynchronous Read operation
+                        {
+                            dto.Id = id;
+                            dto.Name = rd["name"].ToString();
+                            dto.Quantity = Convert.ToInt16(rd["quantity"]);
+                            dto.Unit = rd["unit"].ToString();
+                            dto.RecipeId = Convert.ToInt64(rd["recipe_id"]);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return dto;
         }
 
         public int ListCount()
@@ -144,7 +207,27 @@ namespace MvcTraining.Repositories.Recipe
 
         public int Update(IngredientDto item)
         {
-            throw new System.NotImplementedException();
+            int result = 0;
+            try
+            {
+                using(var con=new SqlConnection(_connection.DbConnection))
+                {
+                    con.Open();
+                    var cmd = con.CreateCommand();
+                    cmd.CommandText = SqlResources.UpdateIngredient;
+                    cmd.Parameters.AddWithValue("name", item.Name);
+                    cmd.Parameters.AddWithValue("quantity", item.Quantity);
+                    cmd.Parameters.AddWithValue("unit", item.Unit);
+                    cmd.Parameters.AddWithValue("id", item.Id);
+                    result=cmd.ExecuteNonQuery();
+
+                    con.Close ();
+                }
+            }catch(Exception ex)
+            {
+                throw new Exception(ex.Message);   
+            }
+            return result;
         }
     }
 }
