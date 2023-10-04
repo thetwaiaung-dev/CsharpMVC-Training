@@ -8,6 +8,13 @@ var ingredientUnitError = document.getElementById('ingredientUnitError');
 var inputIngredientName = document.getElementById('ingredient-name');
 var inputIngredientQuantity = document.getElementById('ingredient-quantity');
 var inputIngredientUnit = document.getElementById('ingredient-unit');
+var ingredientNameErrorUpdate = document.getElementById('ingredientNameErrorUpdate');
+var ingredientQuantityErrorUpdate = document.getElementById('ingredientQuantityErrorUpdate');
+var ingredientUnitErrorUpdate = document.getElementById('ingredientUnitErrorUpdate');
+var updateIngredientName = document.getElementById('update-ingredient-name');
+var updateIngredientQuantity = document.getElementById('update-ingredient-quantity');
+var updateIngredientUnit = document.getElementById('update-ingredient-unit');
+var tableRowIndex = document.getElementById('tableRowIndex');
 
 //retreive ingredient data list from controller when have error
 if (window.ingredientName != null) {
@@ -18,38 +25,24 @@ if (window.ingredientName != null) {
 
 //to add table row when click button
 function addIngre() {
-    if (!validateIngreName() || !validateIngreQuantity() || !validateIngreUnit() ) {
+    if (!validateName(inputIngredientName.value, ingredientNameError) || !validateQuantity(inputIngredientQuantity.value, ingredientQuantityError) || !validateUnit(inputIngredientUnit.value, ingredientUnitError)) {
         return false;
     }
     createTable($('#ingredient-name').val(), $('#ingredient-quantity').val(), $('#ingredient-unit').val());
     addIngredientModal.hide();
 }
 
-//validate ingredient name
+//to show error when key up
 function validateIngreName() {
-    if (inputIngredientName.value == null || inputIngredientName.value.trim() == "") {
-        error(ingredientNameError, 'Name is required.')
-        return false;
-    }
-    return true;
+    validateName(inputIngredientName.value, ingredientNameError);
 }
 
-//validate ingredient quantity
 function validateIngreQuantity() {
-    if (inputIngredientQuantity.value == null || inputIngredientQuantity.value.trim() == "") {
-        error(ingredientQuantityError, 'Quantity is required.')
-        return false;
-    }
-    return true;
+    validateQuantity(inputIngredientQuantity.value, ingredientQuantityError);
 }
 
-//validate ingredient unit
 function validateIngreUnit() {
-    if (inputIngredientUnit.value == null || inputIngredientUnit.value.trim() == '') {
-        error(ingredientUnitError, 'Unit is required.')
-        return false;
-    }
-    return true;
+    validateUnit(inputIngredientUnit.value, ingredientUnitError);
 }
 
 //table data create method
@@ -157,15 +150,70 @@ function removeIngre(element) {
     }
 }
 
+//set data when click update icon button
 function updateIngre(element) {
     var tableRow = element.closest('tr');
     var name = tableRow.querySelector('td:nth-child(1)').innerHTML;
     var quantity = tableRow.querySelector('td:nth-child(2)').innerHTML;
     var unit = tableRow.querySelector('td:nth-child(3)').innerHTML;
 
-    document.getElementById('update-ingredient-name').value = name;
-    document.getElementById('update-ingredient-quantity').value = quantity;
-    document.getElementById('update-ingredient-unit').value = unit;
+    updateIngredientName.value = name;
+    updateIngredientQuantity.value = quantity;
+    updateIngredientUnit.value = unit;
+    tableRowIndex.value = tableRow.rowIndex;
     updateIngredientModal.show();
 }
-        
+
+//to update data for ingredient in table row
+function updateIngreBtn() {
+    if (!validateName(updateIngredientName.value, ingredientNameErrorUpdate) || !validateQuantity(updateIngredientQuantity.value, ingredientQuantityErrorUpdate) || !validateUnit(updateIngredientUnit.value, ingredientUnitErrorUpdate)) {
+        return false;
+    }
+
+    var rowIndex = tableRowIndex.value;
+    document.getElementsByClassName('name-td')[rowIndex - 1].innerText = updateIngredientName.value;
+    document.getElementsByClassName('quantity-td')[rowIndex - 1].innerText = updateIngredientQuantity.value;
+    document.getElementsByClassName('unit-td')[rowIndex - 1].innerText = updateIngredientUnit.value;
+
+    updateIngredientModal.hide();
+}
+
+//to show error when key up
+function validateIngreNameUpdate() {
+    validateName(updateIngredientName.value, ingredientNameErrorUpdate);
+}
+
+function validateIngreQuantityUpdate() {
+    validateQuantity(updateIngredientQuantity.value, ingredientQuantityErrorUpdate);
+}
+
+function validateIngreUnitUpdate() {
+    validateUnit(updateIngredientUnit.value, ingredientUnitErrorUpdate);
+}
+
+//validate ingredient name
+function validateName(data,errorElement) {
+    if (data == null || data.trim() == "") {
+        error(errorElement, 'Name is required.')
+        return false;
+    }
+    return true;
+}
+
+//validate ingredient quantity
+function validateQuantity(data, errorElement) {
+    if (data == null || data.trim() == "") {
+        error(errorElement, 'Quantity is required.')
+        return false;
+    }
+    return true;
+}
+
+//validate ingredient unit
+function validateUnit(data, errorElement) {
+    if (data == null || data.trim() == '') {
+        error(errorElement, 'Unit is required.')
+        return false;
+    }
+    return true;
+}

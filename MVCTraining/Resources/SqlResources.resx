@@ -175,9 +175,12 @@
     <value>delete Tbl_Ingredient where recipe_id=@recipeId</value>
   </data>
   <data name="GetIngredientsByRecipeId" xml:space="preserve">
-    <value>select id,name,quantity,unit from Tbl_Ingredient where recipe_id=@recipeId</value>
+    <value>select id,name,quantity,unit from Tbl_Ingredient where recipe_id=@recipeId and is_deleted=0</value>
   </data>
   <data name="GetRecipeById" xml:space="preserve">
     <value>select id,title,descript,instruction,prepare_time,cooking_time,author,created_date,category,dish_image from Tbl_Recipe where id=@id and is_deleted=0</value>
+  </data>
+  <data name="DeleteSortIngredient" xml:space="preserve">
+    <value>update Tbl_Ingredient set is_deleted=@IsDeleted where id=@id</value>
   </data>
 </root>

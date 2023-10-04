@@ -51,27 +51,29 @@
                     <label class="col">Name</label>
                     <div class="col">
                         <input type="text" id="update-ingredient-name" class="form-control " style="width:300px"
-                               onkeyup="validateIngreName()" />
-                        <span id="ingredientNameError" class="text-danger"></span>
+                               onkeyup="validateIngreNameUpdate()" />
+                        <span id="ingredientNameErrorUpdate" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label class="col">Quantity</label>
                     <div class="col">
                         <input type="text" id="update-ingredient-quantity" class="form-control" style="width:300px"
-                               onkeyup="validateIngreQuantity()" />
-                        <span class="text-danger" id="ingredientQuantityError"></span>
+                               onkeyup="validateIngreQuantityUpdate()" />
+                        <span class="text-danger" id="ingredientQuantityErrorUpdate"></span>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label class="col">Unit</label>
                     <div class="col">
                         <input type="text" id="update-ingredient-unit" class="form-control" style="width:300px"
-                               onkeyup="validateIngreUnit()" />
-                        <span class="text-danger" id="ingredientUnitError"></span>
+                               onkeyup="validateIngreUnitUpdate()" />
+                        <span class="text-danger" id="ingredientUnitErrorUpdate"></span>
                     </div>
                 </div>
             </div>
+            <!--to send table row index when update-->
+            <input type="hidden" id="tableRowIndex"/>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-danger" onclick="return updateIngreBtn()" id="ingre-btn">Update</button>

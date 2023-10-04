@@ -23,5 +23,11 @@ namespace MvcTraining.Repositories.Recipe
             List<IngredientDto> dtoList = _ingredientDao.GetIngredientByRecipeId(recipeId);
             return dtoList;
         }
+
+        public int Delete(long id)
+        {
+            int result=_ingredientDao.Delete(id);
+            return result;
+        }
     }
 }

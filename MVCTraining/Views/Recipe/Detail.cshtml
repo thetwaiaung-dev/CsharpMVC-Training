@@ -2,6 +2,14 @@
 @{
     ViewData["Title"] = "Detail";
     var recipe = ViewData["RecipeModel"] as MvcTraining.Models.RecipeModel;
+    var message = ViewData["Message"];
+}
+
+@if ( message != null)
+{
+    <div class="@(message.ToString().Contains("again") ? "alert alert-danger" : "alert alert-success")" id="successMessage">
+        @message
+    </div>
 }
 
 <!--add ingredients modal box-->
@@ -10,7 +18,7 @@
 <div class="row">
     <div class="col-md-7">
         <div class="container">
-            <h2 class="container-fluid text-center mb-5">Update Blog</h2>
+            <h2 class="container-fluid text-center mb-5">Update Recipe</h2>
             <form asp-controller="Recipe" asp-action="Save" method="post" enctype="multipart/form-data" class="container-fluid" id="recipe-form">
                 <div class="mb-3 row">
                     <label  class="col-sm-3 col-form-label">Title</label>
@@ -129,24 +137,24 @@
                                 @foreach(var ingred in Model)
                                 {
                                     <tr>
-                                        <td>
+                                        <td class="name-td">
                                             @Html.DisplayFor(modelItem=>ingred.Name)
                                         </td>
-                                        <td>
+                                        <td class="quantity-td">
                                             @Html.DisplayFor(modelItem=>ingred.Quantity)
                                         </td>
-                                        <td>
+                                        <td class="unit-td">
                                             @Html.DisplayFor(modelItem=>ingred.Unit)
                                         </td>
                                         <td>
                                             <div class="row">
                                                 <div class="col">
-                                                    <a asp-controller="Recipe" asp-action="Edit">
+                                                    <a asp-route="editIngredient" asp-route-id="@ingred.Id">
                                                         <i class="fa-solid fa-pen-to-square"></i>
-                                                    </a>
+                                                    </a> 
                                                 </div>
                                                 <div class="col">
-                                                    <a asp-controller="Recipe" asp-action="Delete">
+                                                    <a asp-route="deleteIngredient" asp-route-id="@ingred.Id" asp-route-recipeId="@recipe.Id">
                                                         <i class="fa-solid fa-trash-can"></i>
                                                     </a>
                                                 </div>
@@ -159,8 +167,6 @@
                     </div>
                 </div>
             </form>
-
-
         </div>
     </div>
 </div>
@@ -172,4 +178,5 @@
         var ingredientUnit = @Html.Raw(ViewData["IngredientUnit"]);
     </script>
     <script src="~/js/pages/Recipe/createRecipe.js" asp-append-version="true"></script>
+    <script src="~/js/pages/Blog/blogAlertBox.js" asp-append-version="true"></script>
 }

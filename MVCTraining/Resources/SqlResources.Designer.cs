@@ -98,6 +98,15 @@ namespace MvcTraining.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to update Tbl_Ingredient set is_deleted=@IsDeleted where id=@id.
+        /// </summary>
+        internal static string DeleteSortIngredient {
+            get {
+                return ResourceManager.GetString("DeleteSortIngredient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SELECT COUNT(Tbl_Blog.Blog_Id) FROM Tbl_Blog WHERE Blog_Title=@BlogTitle AND Blog_Author=@BlogAuthor And Is_Deleted=@IsDeleted;.
         /// </summary>
         internal static string DuplicateName {
@@ -147,7 +156,7 @@ namespace MvcTraining.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to select id,name,quantity,unit from Tbl_Ingredient where recipe_id=@recipeId.
+        ///   Looks up a localized string similar to select id,name,quantity,unit from Tbl_Ingredient where recipe_id=@recipeId and is_deleted=0.
         /// </summary>
         internal static string GetIngredientsByRecipeId {
             get {

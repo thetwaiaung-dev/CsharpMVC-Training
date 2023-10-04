@@ -37,7 +37,7 @@ namespace MvcTraining.Repositories.Recipe
                 var con = new SqlConnection(_connection.DbConnection);
                 con.Open() ;
                 var cmd= con.CreateCommand();
-                //if have,to delete previous ingredients that inserted 
+                //if error have,to delete previous ingredients that inserted 
                 cmd.CommandText = SqlResources.DeleteIngredient;
                 cmd.Parameters.AddWithValue("@recipeId", recipeId);
                 cmd.ExecuteNonQuery();
@@ -91,7 +91,25 @@ namespace MvcTraining.Repositories.Recipe
 
         public int Delete(long id)
         {
-            throw new System.NotImplementedException();
+            int result = 0;
+            try
+            {
+                using(var con=new SqlConnection(_connection.DbConnection))
+                {
+                    con.Open() ;
+                    var cmd=con.CreateCommand();
+                    cmd.CommandText = SqlResources.DeleteSortIngredient;
+                    cmd.Parameters.AddWithValue("IsDeleted", true);
+                    cmd.Parameters.AddWithValue("id", id);
+                    result=cmd.ExecuteNonQuery();
+
+                    con.Close();
+                }
+            }catch(Exception ex)
+            {
+                throw new Exception (ex.Message);
+            }
+            return result;
         }
 
         public int DuplicateCreate(IngredientDto item)

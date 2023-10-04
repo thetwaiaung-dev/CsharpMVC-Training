@@ -82,11 +82,30 @@ namespace MvcTraining.Controllers
         [Route("Recipe/detail")]
         public IActionResult Detail(long id)
         {
+            string message = TempData["Message"] as string;
+
             RecipeDto recipeDto = _recipeService.GetById(id);
             RecipeModel model = ChangeModel.Change(recipeDto);
             List<IngredientDto> dtoList=_ingredientService.GetIngredientByRecipeId(id);
             ViewData["RecipeModel"] = model;
+            ViewData["Message"] = message;
             return View(dtoList);
+        }
+
+        [HttpPost]
+        [Route("Recipe/edit-ingredient",Name ="editIngredient")]
+        public IActionResult EditIngredient(long id)
+        {
+            return View();
+        }
+
+        [Route("Recipe/delete-ingredient",Name ="deleteIngredient")]
+        public IActionResult DeleteIngredient(long id,long recipeId)
+        {
+            int deleteResult = _ingredientService.Delete(id);
+            string message = deleteResult > 0 ? "Ingredient is successfully deleted." : "Ingredient is failed delted.Try again.";
+            TempData["Message"]=message;
+            return RedirectToAction("Detail", new {id=recipeId});
         }
     }
 }
