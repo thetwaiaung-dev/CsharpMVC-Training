@@ -14,17 +14,17 @@ namespace MvcTraining.Repositories.Recipe
 
         public IngredientDao(IOptions<ConnectionStringModel> connection)
         {
-            _connection=connection.Value;
+            _connection = connection.Value;
         }
-        public int Create(IngredientDto item,long recipeId)
+        public int Create(IngredientDto item, long recipeId)
         {
             int result = 0;
             try
             {
-                using(var con=new SqlConnection(_connection.DbConnection))
+                using (var con = new SqlConnection(_connection.DbConnection))
                 {
                     con.Open();
-                    var cmd=con.CreateCommand();
+                    var cmd = con.CreateCommand();
                     cmd.CommandText = SqlResources.SaveIngredient;
                     cmd.Parameters.AddWithValue("@name", item.Name);
                     cmd.Parameters.AddWithValue("@quantity", item.Quantity);
@@ -33,11 +33,12 @@ namespace MvcTraining.Repositories.Recipe
 
                     result = cmd.ExecuteNonQuery();
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 var con = new SqlConnection(_connection.DbConnection);
-                con.Open() ;
-                var cmd= con.CreateCommand();
+                con.Open();
+                var cmd = con.CreateCommand();
                 //if error have,to delete previous ingredients that inserted 
                 cmd.CommandText = SqlResources.DeleteIngredient;
                 cmd.Parameters.AddWithValue("@recipeId", recipeId);
@@ -59,20 +60,20 @@ namespace MvcTraining.Repositories.Recipe
 
         public List<IngredientDto> GetIngredientByRecipeId(long recipeId)
         {
-            List<IngredientDto> dtoList=new List<IngredientDto>();
+            List<IngredientDto> dtoList = new List<IngredientDto>();
             try
             {
-                using(var con=new SqlConnection(_connection.DbConnection))
+                using (var con = new SqlConnection(_connection.DbConnection))
                 {
-                    con.Open() ;
-                    var cmd=con.CreateCommand();
+                    con.Open();
+                    var cmd = con.CreateCommand();
                     cmd.CommandText = SqlResources.GetIngredientsByRecipeId;
                     cmd.Parameters.AddWithValue("@recipeId", recipeId);
-                    using(SqlDataReader rd=cmd.ExecuteReader())
+                    using (SqlDataReader rd = cmd.ExecuteReader())
                     {
                         while (rd.Read())
                         {
-                            IngredientDto dto=new IngredientDto();
+                            IngredientDto dto = new IngredientDto();
                             dto.Id = Convert.ToInt64(rd["id"]);
                             dto.Name = rd["name"].ToString();
                             dto.Quantity = Convert.ToInt16(rd["quantity"]);
@@ -83,7 +84,8 @@ namespace MvcTraining.Repositories.Recipe
 
                     con.Close();
                 }
-            }catch( Exception ex )
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -95,20 +97,21 @@ namespace MvcTraining.Repositories.Recipe
             int result = 0;
             try
             {
-                using(var con=new SqlConnection(_connection.DbConnection))
+                using (var con = new SqlConnection(_connection.DbConnection))
                 {
-                    con.Open() ;
-                    var cmd=con.CreateCommand();
+                    con.Open();
+                    var cmd = con.CreateCommand();
                     cmd.CommandText = SqlResources.DeleteSortIngredient;
                     cmd.Parameters.AddWithValue("IsDeleted", true);
                     cmd.Parameters.AddWithValue("id", id);
-                    result=cmd.ExecuteNonQuery();
+                    result = cmd.ExecuteNonQuery();
 
                     con.Close();
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
-                throw new Exception (ex.Message);
+                throw new Exception(ex.Message);
             }
             return result;
         }
@@ -138,13 +141,13 @@ namespace MvcTraining.Repositories.Recipe
             IngredientDto dto = new IngredientDto();
             try
             {
-                using(var con=new SqlConnection(_connection.DbConnection))
+                using (var con = new SqlConnection(_connection.DbConnection))
                 {
                     con.Open();
-                    var cmd=con.CreateCommand();
+                    var cmd = con.CreateCommand();
                     cmd.CommandText = SqlResources.GetIngredientById;
                     cmd.Parameters.AddWithValue("id", id);
-                    using(SqlDataReader rd=cmd.ExecuteReader())
+                    using (SqlDataReader rd = cmd.ExecuteReader())
                     {
                         while (rd.Read())
                         {
@@ -158,9 +161,10 @@ namespace MvcTraining.Repositories.Recipe
 
                     con.Close();
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
-                throw new Exception (ex.Message);   
+                throw new Exception(ex.Message);
             }
             return dto;
         }
@@ -210,7 +214,7 @@ namespace MvcTraining.Repositories.Recipe
             int result = 0;
             try
             {
-                using(var con=new SqlConnection(_connection.DbConnection))
+                using (var con = new SqlConnection(_connection.DbConnection))
                 {
                     con.Open();
                     var cmd = con.CreateCommand();
@@ -219,13 +223,14 @@ namespace MvcTraining.Repositories.Recipe
                     cmd.Parameters.AddWithValue("quantity", item.Quantity);
                     cmd.Parameters.AddWithValue("unit", item.Unit);
                     cmd.Parameters.AddWithValue("id", item.Id);
-                    result=cmd.ExecuteNonQuery();
+                    result = cmd.ExecuteNonQuery();
 
-                    con.Close ();
+                    con.Close();
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
-                throw new Exception(ex.Message);   
+                throw new Exception(ex.Message);
             }
             return result;
         }

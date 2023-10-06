@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using MvcTraining.Models;
 using MvcTraining.Resources;
 using System;
@@ -172,7 +173,7 @@ namespace MvcTraining.Repositories.Recipe
                             dto.Category = rdr["category"].ToString();
                             dto.DishPhoto = rdr["dish_image"].ToString();
                             dto.CreatedDate = Convert.ToDateTime(rdr["created_date"]);
-                        }
+                       }
                     }
                     con.Close();
                 }
@@ -183,12 +184,71 @@ namespace MvcTraining.Repositories.Recipe
             return dto;
         }
 
-        public int Update(RecipeDto item)
+        public int UpdateRecipeAndIngredient(RecipeDto item,List<IngredientDto> ingreDto)
         {
-            throw new System.NotImplementedException();
+            int result = 0;
+            using(var con=new SqlConnection(_connection.DbConnection))
+            {
+                SqlTransaction transaction=null;  
+                try
+                {
+                    con.Open();
+                    transaction = con.BeginTransaction();
+                    var cmd = con.CreateCommand();
+                    cmd.Transaction = transaction;
+
+                    cmd.CommandText = SqlResources.UpdateRecipe;
+                    cmd.Parameters.AddWithValue("@title", item.Title);
+                    cmd.Parameters.AddWithValue("@descript", item.Description);
+                    cmd.Parameters.AddWithValue("@instruct", item.Instruction);
+                    cmd.Parameters.AddWithValue("@preTime", item.PreparationTime);
+                    cmd.Parameters.AddWithValue("@cookTime", item.CookingTime);
+                    cmd.Parameters.AddWithValue("@author", item.Author);
+                    cmd.Parameters.AddWithValue("@modifiedDate", item.ModifiedDate);
+                    cmd.Parameters.AddWithValue("@category", item.Category);
+                    cmd.Parameters.AddWithValue("@image", item.DishPhoto);
+                    cmd.Parameters.AddWithValue("@id", item.Id);
+                    result = cmd.ExecuteNonQuery();
+
+                    if(ingreDto.Count >0)
+                    {
+                        cmd.CommandText = SqlResources.SaveIngredient;
+                        foreach (var ingre in ingreDto)
+                        {
+                            cmd.Parameters.AddWithValue("@name", ingre.Name);
+                            cmd.Parameters.AddWithValue("@quantity", ingre.Quantity);
+                            cmd.Parameters.AddWithValue("@unit", ingre.Unit);
+                            cmd.Parameters.AddWithValue("@recipeId", ingre.RecipeId);
+
+                            result += cmd.ExecuteNonQuery();
+                            cmd.Parameters.Clear();
+                        }
+                        
+                    }
+                    transaction.Commit();
+                    con.Close();
+                }
+                catch (Exception ex)
+                {
+                    try
+                    {
+                        transaction.Rollback();
+                    }catch(Exception ex2)
+                    {
+                        throw new Exception(ex2.Message);
+                    }
+                    throw new Exception(ex.Message);
+                }
+            }
+            return result;
         }
 
         int IRepository<RecipeDto>.Create(RecipeDto item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int Update(RecipeDto item)
         {
             throw new NotImplementedException();
         }

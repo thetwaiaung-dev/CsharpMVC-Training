@@ -254,5 +254,15 @@ namespace MvcTraining.Resources {
                 return ResourceManager.GetString("UpdateIngredient", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to update Tbl_Recipe set title=@title,descript=@descript,instruction=@instruct,prepare_time=@preTime,cooking_time=@cookTime,
+        ///author=@author,modified_date=@modifiedDate,category=@category,dish_image=@image where id=@id.
+        /// </summary>
+        internal static string UpdateRecipe {
+            get {
+                return ResourceManager.GetString("UpdateRecipe", resourceCulture);
+            }
+        }
     }
 }

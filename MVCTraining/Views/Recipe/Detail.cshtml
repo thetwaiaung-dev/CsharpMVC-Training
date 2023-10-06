@@ -19,47 +19,60 @@
     <div class="col-md-7">
         <div class="container">
             <h2 class="container-fluid text-center mb-5">Update Recipe</h2>
-            <form asp-controller="Recipe" asp-action="Save" method="post" enctype="multipart/form-data" class="container-fluid" id="recipe-form">
+            <form asp-controller="Recipe" asp-action="Update" method="post" enctype="multipart/form-data" class="container-fluid" id="recipe-update-form">
+                
+                <div class="row mb-3">
+                    <div class="img-cont mt-3 mb-3">
+
+                        <div class="img d-flex justify-content-center align-items-center" id="preview">
+                            <img src="@recipe.DishPhoto" id="imgSrc" class="img-thumbnail" style="max-width:200px;max-height:250px" />
+                            <input type="hidden" asp-for="@recipe.DishPhoto" />
+                        </div>
+                    </div>
+                    <div class="col-md-5"></div> 
+                    <div class="col-md-4">
+                        <span style="color:red; text-align: right;" id="photoError"></span>
+                        <label class="btn btn-primary">
+                            Upload<input asp-for="@recipe.PhotoUrl" onchange="previewImage(event)"
+                             id="photoUpload" class="uploadFile img" style="width: 0px;height: 0px;overflow: hidden;">
+                        </label>
+                    </div>
+                    <span asp-validation-for="@recipe.PhotoUrl" id="photo-error" class="text-danger" style="text-align:center"></span>
+                </div>
+                
                 <div class="mb-3 row">
                     <label  class="col-sm-3 col-form-label">Title</label>
                     <div class="col-sm-9">
-                        <input asp-for="@recipe.Title" type="text" class="form-control">
-                        <span asp-validation-for="@recipe.Title" class="text-danger"></span>
+                        <input asp-for="@recipe.Title" id="input-title" type="text" class="form-control" onkeyup="validateRecipeTitle()">
+                        <span asp-validation-for="@recipe.Title" id="title-error" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="mb-3 row">
                     <label asp-for="@recipe.Author" class="col-sm-3 col-form-label">Author</label>
-                    <div class="col-sm-9">
-                        <input asp-for="@recipe.Author" class="form-control">
-                        <span asp-validation-for="@recipe.Author" class="text-danger"></span>
+                    <div class="col-sm-9"> 
+                        <input asp-for="@recipe.Author" id="input-author" class="form-control" onkeyup="validateRecipeAuthor()">
+                        <span asp-validation-for="@recipe.Author" id="author-error" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="mb-3 row">
                     <label asp-for="@recipe.PreparationTime" class="col-sm-3 col-form-label">Preparation Time</label>
                     <div class="col-sm-9">
-                        <input asp-for="@recipe.PreparationTime" class="form-control">
-                        <span asp-validation-for="@recipe.PreparationTime" class="text-danger"></span>
+                        <input asp-for="@recipe.PreparationTime" id="input-pre-time" class="form-control" onkeyup="validateRecipePreTime()">
+                        <span asp-validation-for="@recipe.PreparationTime" id="preparationTime-error" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="mb-3 row">
                     <label asp-for="@recipe.CookingTime" class="col-sm-3 col-form-label">Cooking Time</label>
                     <div class="col-sm-9">
-                        <input asp-for="@recipe.CookingTime" class="form-control">
-                        <span asp-validation-for="@recipe.CookingTime" class="text-danger"></span>
+                        <input asp-for="@recipe.CookingTime" id="input-cook-time" class="form-control" onkeyup="validateRecipeCookTime()">
+                        <span asp-validation-for="@recipe.CookingTime" id="cookingTime-error" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="mb-3 row">
                     <label asp-for="@recipe.Category" class="col-sm-3 col-form-label">Category</label>
                     <div class="col-sm-9">
-                        <input asp-for="@recipe.Category" class="form-control">
-                        <span asp-validation-for="@recipe.Category" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="mb-3 row">
-                    <label asp-for="@recipe.PhotoUrl" class="col-sm-3 col-form-label">Choose Photo</label>
-                    <div class="col-sm-9">
-                        <input asp-for="@recipe.PhotoUrl" class="form-control">
-                        <span asp-validation-for="@recipe.PhotoUrl" class="text-danger"></span>
+                        <input asp-for="@recipe.Category" id="input-category" class="form-control" onkeyup="validateRecipeCategory()">
+                        <span asp-validation-for="@recipe.Category" id="category-error" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="mb-3 row">
@@ -73,11 +86,11 @@
                         </div>
                         <div id="collapse-description" class="accordion-collapse collapse">
                             <div class="accordion-body">
-                                <textarea asp-for="@recipe.Description" class="form-control">
+                                <textarea asp-for="@recipe.Description" id="input-des" class="form-control" onkeyup="validateRecipeDes()">
                                 </textarea>
                             </div>
                         </div>
-                        <span asp-validation-for="@recipe.Description" class="text-danger"></span>
+                        <span asp-validation-for="@recipe.Description" id="desc-error" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="mb-3 row">
@@ -91,18 +104,21 @@
                         </div>
                         <div id="collapse-instruction" class="accordion-collapse collapse">
                             <div class="accordion-body">
-                                <textarea asp-for="@recipe.Instruction" class="form-control">
+                                <textarea asp-for="@recipe.Instruction" id="input-instruct" class="form-control" onkeyup="validateRecipeInstruct()">
                                 </textarea>
                             </div>
                         </div>
-                        <span asp-validation-for="@recipe.Instruction" class="text-danger"></span>
+                        <span asp-validation-for="@recipe.Instruction" id="instruct-error" class="text-danger"></span>
                     </div>
                 </div>
 
+                <!--to send recipe id when update-->
+                <input type="hidden" asp-for="@recipe.Id"/>
+
                 <div class="mb-5 row">
                     <label class="col-sm-3"></label>
-                    <div class="col-sm-9">
-                        <button id="recipe-add-btn" class="col-3 btn btn-primary">Update</button>
+                      <div class="col-sm-9">
+                        <button id="recipe-update-btn" onclick="return updateRecipe()" class="col-3 btn btn-primary">Update</button>
                     </div>
                 </div>
 
@@ -166,6 +182,9 @@
 </div>
 
 @section Scripts{
+    <script>
+        var photoUrl = @Html.Raw(Json.Serialize(recipe.DishPhoto));
+    </script>
     <script type="text/javascript">
         var ingredientName = @Html.Raw(ViewData["IngredientName"]);
         var ingredientQuantity = @Html.Raw(ViewData["IngredientQuantity"]);

@@ -1,5 +1,6 @@
 ﻿using MvcTraining.Models;
 using System;
+using System.Collections.Generic;
 
 namespace MvcTraining.Repositories.Recipe
 {
@@ -60,6 +61,18 @@ namespace MvcTraining.Repositories.Recipe
         {
             RecipeDto dto=_recipeDao.GetById(id);
             return dto;
+        }
+
+        public int Update(RecipeDto recipeDto)
+        {
+            int result=_recipeDao.Update(recipeDto);
+            return result;
+        }
+
+        public int UpdateRecipeIngredient(RecipeDto recipeDto,List<IngredientDto> dtoList)
+        {
+            int result=_recipeDao.UpdateRecipeAndIngredient(recipeDto,dtoList); 
+            return result;
         }
     }
 }

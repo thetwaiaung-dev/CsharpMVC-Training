@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 using MvcTraining.Models;
 using MvcTraining.Repositories.Recipe;
 using Newtonsoft.Json;
@@ -7,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace MvcTraining.Controllers
@@ -27,7 +29,7 @@ namespace MvcTraining.Controllers
 
         public IActionResult GetAllView()
         {
-            string successMessage = TempData["SuccessMessage"] as string;
+            string successMessage = TempData["Message"] as string;
             ViewData["SuccessMessage"] = successMessage;
             return View();
         }
@@ -63,7 +65,7 @@ namespace MvcTraining.Controllers
                     }
                 }
                 recipe.PhotoUrl.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
-                TempData["SuccessMessage"] = "Saved successful";
+                TempData["Message"] = "Saved successful";
                 return RedirectToAction("GetAllView", "Recipe");
             }
             ViewData["IngredientName"] = JsonConvert.SerializeObject(ingredientName);
@@ -90,6 +92,7 @@ namespace MvcTraining.Controllers
             List<IngredientDto> dtoList=_ingredientService.GetIngredientByRecipeId(id);
             ViewData["RecipeModel"] = model;
             ViewData["Message"] = message;
+
             return View(dtoList);
         }
 
@@ -116,6 +119,59 @@ namespace MvcTraining.Controllers
             string message = deleteResult > 0 ? "Ingredient is successfully deleted." : "Deleting is failed.Try again.";
             TempData["Message"]=message;
             return RedirectToAction("Detail", new {id=recipeId});
+        }
+
+        [HttpPost]
+        public IActionResult Update(RecipeModel recipe, List<string> ingredientName, List<string> ingredientQuantity,
+                                    List<string> ingredientUnit)
+        {
+            if (ModelState.IsValid)
+            {
+                string serverFolder = null;
+                if(recipe.DishPhoto != recipe.PhotoUrl.FileName)
+                {
+                    string folder = "dish_photo/";
+                    folder += Guid.NewGuid().ToString() + "_" + recipe.PhotoUrl.FileName;
+                    serverFolder = Path.Combine(_webHostEnvironment.WebRootPath, folder);
+
+                    recipe.DishPhoto = "/" + folder;
+                }
+                RecipeDto recipeDto = ChangeModel.Change(recipe);
+                recipeDto.ModifiedDate= DateTime.Now;
+
+                List<IngredientDto> ingreDtoList = new List<IngredientDto>();
+                if( ingredientName.Count > 0)
+                {
+                    for(var i=0;i< ingredientName.Count; i++)
+                    {
+                        IngredientDto ingreDto = new IngredientDto();
+                        ingreDto.Name = ingredientName[i];
+                        ingreDto.Quantity = Convert.ToInt16(ingredientQuantity[i]);
+                        ingreDto.Unit = ingredientUnit[i];
+                        ingreDto.RecipeId = recipeDto.Id;
+
+                        ingreDtoList.Add(ingreDto);
+                    }
+                }
+                int updateRecipeResult=_recipeService.UpdateRecipeIngredient(recipeDto,ingreDtoList);
+                string message = updateRecipeResult > 0 ? "Success updated." : "Fail update.Try again.";
+                TempData["Message"] = message;
+                if(updateRecipeResult>0 && recipe.DishPhoto != recipe.PhotoUrl.FileName)
+                {
+                    recipe.PhotoUrl.CopyToAsync(new FileStream(serverFolder,FileMode.Create));
+                }
+                return updateRecipeResult > 0 ? RedirectToAction("GetAllView") : RedirectToAction("Detail",new {id=recipe.Id}); 
+            }
+            else
+            {
+                List<IngredientDto> dtoList = _ingredientService.GetIngredientByRecipeId(recipe.Id);
+                ViewData["RecipeModel"] = recipe;
+                ViewData["IngredientName"] = JsonConvert.SerializeObject(ingredientName);
+                ViewData["IngredientQuantity"] = JsonConvert.SerializeObject(ingredientQuantity);
+                ViewData["IngredientUnit"] = JsonConvert.SerializeObject(ingredientUnit);
+                return View("Detail",dtoList);
+            }
+            
         }
     }
 }

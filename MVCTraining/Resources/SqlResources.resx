@@ -192,4 +192,8 @@
   <data name="GetIngredientById" xml:space="preserve">
     <value>select name,quantity,unit,recipe_id from Tbl_Ingredient where id=@id</value>
   </data>
+  <data name="UpdateRecipe" xml:space="preserve">
+    <value>update Tbl_Recipe set title=@title,descript=@descript,instruction=@instruct,prepare_time=@preTime,cooking_time=@cookTime,
+author=@author,modified_date=@modifiedDate,category=@category,dish_image=@image where id=@id</value>
+  </data>
 </root>

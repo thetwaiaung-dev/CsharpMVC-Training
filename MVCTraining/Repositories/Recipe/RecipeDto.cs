@@ -28,7 +28,7 @@ namespace MvcTraining.Repositories.Recipe
         public DateTime ModifiedDate {  get; set; }
         [Column("category")]
         public string Category {  get; set; }
-        [Column("dish_photo")]
+        [Column("dish_image")]
         public string DishPhoto { get; set; }
     }
 }
